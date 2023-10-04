@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Camera Page</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <button id="capture">Capture</button>
+    <div id="prediction-result"></div>
+
+    <script>
+        var formData = new FormData();
+        var video = document.getElementById('video');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (err) {
+                console.log("An error occurred: " + err);
+            });
+
+        document.getElementById('capture').addEventListener('click', function() {
+            context.drawImage(video, 0, 0, 640, 480);
+            var dataURL = canvas.toDataURL('image/jpeg');
+            sendImageToPredict(dataURL);
+        });
+
+        function sendImageToPredict(imageData) {
+            var csrfToken = '{{ csrf_token }}';
+            formData.append('image', imageData);
+            formData.append('csrfmiddlewaretoken', csrfToken);
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/predict_loop/',
+                data: formData,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}' // Sertakan token CSRF dalam header
+                },
+                success: function(response) {
+                    var resultDiv = document.getElementById('prediction-result');
+                    resultDiv.innerHTML = 'Predicted Class: ' + response.predicted_name + '<br>';
+                    resultDiv.innerHTML += 'Probabilities: ' + JSON.stringify(response.class_probabilities);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
