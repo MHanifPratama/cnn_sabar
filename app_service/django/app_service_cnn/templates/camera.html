@@ -38,8 +38,8 @@
             formData.append('csrfmiddlewaretoken', csrfToken);
 
             $.ajax({
-                type: 'POST',
-                url: '/api/predict_loop/',
+                type: 'post',
+                url: "http://127.0.0.1:8080/predict-image",
                 data: formData,
                 contentType: false,
                 processData: false,
