@@ -15,7 +15,7 @@ class ModelConfiguration:
     
     def image_preprocess(self, img):
         image = Image.open(img)
-        image = image.resize((54, 54))
+        image = image.resize((299, 299))
         image = np.array(image) / 255.0
         image = np.expand_dims(image, axis=0)
         return image
