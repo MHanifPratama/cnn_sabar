@@ -8,7 +8,6 @@ Original file is located at
 """
 
 import tensorflow as tf
-from google.colab import drive, files
 
 """# Generate File Input Parh""" 
 

@@ -7,7 +7,7 @@ import numpy as np
 class ModelConfiguration:
     def __init__(self):
         self.model_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h5_files')
-        self.model_path = os.path.join(self.model_directory, 'best_model_gpt.h5')
+        self.model_path = os.path.join(self.model_directory, 'best_model_Alexnet.h5')
         self.model = load_model(self.model_path)
     
     def get_model(self):

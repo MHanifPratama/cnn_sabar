@@ -45,7 +45,7 @@ async def predict_image_api_loop(image:ImageData):
         format, imgstr = image.split(';base64,')
         image_data = base64.b64decode(imgstr)
         image = Image.open(BytesIO(image_data))
-        image = image.resize((54, 54))
+        image = image.resize((227, 227))
         image = np.array(image) / 255.0
         image = np.expand_dims(image, axis=0)
         predictions = model.predict(image)
