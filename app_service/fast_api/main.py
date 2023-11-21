@@ -39,7 +39,10 @@ async def test(text: str):
 async def predict_image_api(image: UploadFile = File(...)):
     if image:
         class_name = model_pred.get_class_name()
-        image_array = model_pred.image_preprocess(image.file)
+        if image.filename.split(".")[-1] == 'png':
+            image = image.convert('RGB')
+        # image = model_pred.image_crops(image.file)
+        image_array = model_pred.image_preprocess(image)
         predictions = model.predict(image_array)
         predicted_class = np.argmax(predictions, axis=1)
         class_probabilities = predictions.tolist()[0]
