@@ -5,3 +5,4 @@ USER=username_user
 PASSWORD=password_user
 DB_NAME=nama_database
 DB_TYPE=postgresql
+SECRET_KEY=bebas_apa_ajah_ges
