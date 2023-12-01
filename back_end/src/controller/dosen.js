@@ -1,14 +1,16 @@
-const DosenModel = require('../models/dosen')
+const {Dosen} = require('../models');
 
 const getAllDosen = async (req,res) =>{
     try{
-        const data = await DosenModel.getAllDosenFromDB();
+        const data = await Dosen.findAll();
+        console.log(data);
         res.json({
             message: "Success",
             data: data
         })
     }
     catch(error){
+        console.log(error);
         res.json({
             message: "Server Error",
             error: error
@@ -18,6 +20,7 @@ const getAllDosen = async (req,res) =>{
 
 const createNewDosen = async (req,res) => {
     const {body} = req;
+    console.log(body);
     try{
         if(!body.nip || !body.nama || !body.email){
             res.status(400).json({
@@ -25,7 +28,12 @@ const createNewDosen = async (req,res) => {
                 data: []
             })
         }
-        const data = await DosenModel.createNewDosenFromDB(body);
+        const data = await Dosen.create({
+            nip: body.nip,
+            nama_dosen: body.nama,
+            email: body.email
+        })
+        console.log(data.id);
         res.json({
             message: "Success",
             data: body
@@ -43,22 +51,29 @@ const updateDosen = async (req,res) => {
     try{
         const {id} = req.params;
         const {body} = req;
-        const {rowCount} = await DosenModel.updateDosenFromDB(id, body);
-        if(rowCount == 0){
-            res.json({
-                message: "Data not found",
-                data:[]
-            })
-        }
-        else{
-            res.json({
-                message: "Success",
-                data: {
-                    id: id,
-                    ...body
-                }
-            })
-        }
+        await Dosen.update({
+            nip: body.nip,
+            nama_dosen: body.nama,
+            email: body.email
+        },{
+            where: {
+                id: id
+            }
+        
+        }).then(function (result) {
+            if(result == 0){
+                res.json({
+                    message: "Data not found",
+                    data: []
+                })
+            }
+            else{
+                res.json({
+                    message: "Success",
+                    data: body
+                })
+            }
+          });
     }
     catch(error){
         res.json({
@@ -68,24 +83,27 @@ const updateDosen = async (req,res) => {
     }
 }
 
-const deleteDosen = (req,res) => {
+const deleteDosen = async (req,res) => {
     try{
         const {id} = req.params;
-        const {rowCount} = DosenModel.deleteDosenFromDB(id);
-        if(rowCount == 0){
-            res.json({
-                message: "Data not found",
-                data:[]
-            })
-        }
-        else{
-            res.json({
-                message: "Success",
-                data: {
-                    id: id
-                }
-            })
-        }
+        await Dosen.destroy({
+            where: {
+                id: id
+            }
+        }).then(function (result) {
+            if(result == 0){
+                res.json({
+                    message: "Data not found",
+                    data: []
+                })
+            }
+            else{
+                res.json({
+                    message: "Success",
+                    data: []
+                })
+            }
+          });
     }
     catch(error){
         res.json({
@@ -97,11 +115,24 @@ const deleteDosen = (req,res) => {
 
 const detailDosen = async (req,res) => {
     try{
-        const data = await DosenModel.detailDosenFromDB(req.params.id);
-        res.json({
-            message: "Success",
-            data: data
-        })
+        await Dosen.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(function (result) {
+            if(result == null){
+                res.json({
+                    message: "Data not found",
+                    data: {}
+                })
+            }
+            else{
+                res.json({
+                    message: "Success",
+                    data: result
+                })
+            }
+          });
     }
     catch(error){
         if (error.code === 0){
