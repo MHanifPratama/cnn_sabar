@@ -4,14 +4,14 @@ const getAllMahasiswa = async (req,res) =>{
     try{
         const data = await Mahasiswa.findAll();
         console.log(data);
-        res.json({
+        return res.json({
             message: "Success",
             data: data
         })
     }
     catch(error){
         console.log(error);
-        res.json({
+        return res.json({
             message: "Server Error",
             error: error
         })
@@ -23,7 +23,7 @@ const createNewMahasiswa = async (req,res) => {
     console.log(body);
     try{
         if(!body.nip || !body.nama || !body.email){
-            res.status(400).json({
+            return res.status(400).json({
                 message: "Bad Request",
                 data: []
             })
@@ -34,13 +34,13 @@ const createNewMahasiswa = async (req,res) => {
             email: body.email
         })
         console.log(data.id);
-        res.json({
+        return res.json({
             message: "Success",
             data: body
         })
     }
     catch(error){
-        res.json({
+        return res.json({
             message: "Server Error",
             error: error
         })
@@ -62,13 +62,13 @@ const updateMahasiswa = async (req,res) => {
         
         }).then(function (result) {
             if(result == 0){
-                res.json({
+                return res.json({
                     message: "Data not found",
                     data: []
                 })
             }
             else{
-                res.json({
+                return res.json({
                     message: "Success",
                     data: body
                 })
@@ -76,7 +76,7 @@ const updateMahasiswa = async (req,res) => {
           });
     }
     catch(error){
-        res.json({
+        return res.json({
             message: "Server Error",
             error: error
         })
@@ -92,13 +92,13 @@ const deleteMahasiswa = async (req,res) => {
             }
         }).then(function (result) {
             if(result == 0){
-                res.json({
+                return res.json({
                     message: "Data not found",
                     data: []
                 })
             }
             else{
-                res.json({
+                return res.json({
                     message: "Success",
                     data: []
                 })
@@ -106,7 +106,7 @@ const deleteMahasiswa = async (req,res) => {
           });
     }
     catch(error){
-        res.json({
+        return res.json({
             message: "Server Error",
             error: error
         })
@@ -121,13 +121,13 @@ const detailMahasiswa = async (req,res) => {
             }
         }).then(function (result) {
             if(result == null){
-                res.json({
+                return res.json({
                     message: "Data not found",
                     data: {}
                 })
             }
             else{
-                res.json({
+                return res.json({
                     message: "Success",
                     data: result
                 })
@@ -136,12 +136,12 @@ const detailMahasiswa = async (req,res) => {
     }
     catch(error){
         if (error.code === 0){
-            res.json({
+            return res.json({
                 message: "Data not found",
                 data: {}
             })
         }
-        res.json({
+        return res.json({
             message: "Server Error",
             error: error
         })
