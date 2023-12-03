@@ -3,7 +3,6 @@ const {Dosen} = require('../models');
 const getAllDosen = async (req,res) =>{
     try{
         const data = await Dosen.findAll();
-        console.log(data);
         return res.json({
             message: "Success",
             data: data
@@ -20,7 +19,6 @@ const getAllDosen = async (req,res) =>{
 
 const createNewDosen = async (req,res) => {
     const {body} = req;
-    console.log(body);
     try{
         if(!body.nip || !body.nama || !body.email){
             return res.status(400).json({

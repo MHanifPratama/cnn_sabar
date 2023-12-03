@@ -3,7 +3,6 @@ const {Mahasiswa} = require('../models');
 const getAllMahasiswa = async (req,res) =>{
     try{
         const data = await Mahasiswa.findAll();
-        console.log(data);
         return res.json({
             message: "Success",
             data: data
@@ -20,7 +19,6 @@ const getAllMahasiswa = async (req,res) =>{
 
 const createNewMahasiswa = async (req,res) => {
     const {body} = req;
-    console.log(body);
     try{
         if(!body.nip || !body.nama || !body.email){
             return res.status(400).json({
@@ -33,7 +31,6 @@ const createNewMahasiswa = async (req,res) => {
             nama_mahasiswa: body.nama,
             email: body.email
         })
-        console.log(data.id);
         return res.json({
             message: "Success",
             data: body
