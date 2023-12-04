@@ -67,12 +67,12 @@ const registerUser = async (req,res) => {
             password: hashPassword,
             role:'non_admin',
         })
-        res.json({
+        return res.json({
             message: "Success Created",
         })
     }
     catch(error){
-        res.json({
+        return res.json({
             message: "Server Error",
             error: error
         })

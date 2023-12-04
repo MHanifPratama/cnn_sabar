@@ -9,7 +9,6 @@ const getAllMahasiswa = async (req,res) =>{
         })
     }
     catch(error){
-        console.log(error);
         return res.json({
             message: "Server Error",
             error: error
