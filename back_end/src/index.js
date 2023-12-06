@@ -17,8 +17,6 @@ app.use(middlewareLog);
 
 app.use("/api/v1/user", userRoutes);
 
-// app.use(middlewareValidation);
-
 app.use("/api/v1/dosen", middlewareValidation, middlewareRoles.permission_role("admin"), dosenRoutes)
 app.use("/api/v1/mahasiswa", middlewareValidation, middlewareRoles.permission_role("admin"), mahasiswaRoutes)
 
