@@ -1,8 +1,8 @@
-PORT=port_server
 DB_HOST=localhost
-DB_PORT=port_db
+DB_NAME=nama_database
 USER=username_user
 PASSWORD=password_user
-DB_NAME=nama_database
+PORT=port_server
+DB_PORT=port_db
 DB_TYPE=postgresql
-SECRET_KEY=bebas_apa_ajah_ges
+JWT_SECRET_KEY=bebas_apa_ajah_ges
