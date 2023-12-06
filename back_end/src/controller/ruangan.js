@@ -1,8 +1,8 @@
-const { Mahasiswa } = require("../models");
+const { Ruangan } = require("../models");
 
-const getAllMahasiswa = async (req, res) => {
+const getAllRuangan = async (req, res) => {
    try {
-      const data = await Mahasiswa.findAll();
+      const data = await Ruangan.findAll();
       return res.json({
          message: "Success",
          data: data,
@@ -16,19 +16,17 @@ const getAllMahasiswa = async (req, res) => {
    }
 };
 
-const createNewMahasiswa = async (req, res) => {
+const createNewRuangan = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.npm || !body.nama || !body.email) {
+      if (!body.id_ruangan || !body.nama_ruangan) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
          });
       }
-      const data = await Mahasiswa.create({
-         npm: body.npm,
-         nama_mahasiswa: body.nama,
-         email: body.email,
+      const data = await Ruangan.create({
+         nama_ruangan: body.nama_ruangan,
       });
       return res.json({
          message: "Success",
@@ -42,15 +40,13 @@ const createNewMahasiswa = async (req, res) => {
    }
 };
 
-const updateMahasiswa = async (req, res) => {
+const updateRuangan = async (req, res) => {
    try {
       const { id } = req.params;
       const { body } = req;
-      await Mahasiswa.update(
+      await Ruangan.update(
          {
-            npm: body.npm,
-            nama_mahasiswa: body.nama,
-            email: body.email,
+            nama_ruangan: body.nama_ruangan,
          },
          {
             where: {
@@ -78,10 +74,10 @@ const updateMahasiswa = async (req, res) => {
    }
 };
 
-const deleteMahasiswa = async (req, res) => {
+const deleteRuangan = async (req, res) => {
    try {
       const { id } = req.params;
-      await Mahasiswa.destroy({
+      await Ruangan.destroy({
          where: {
             id: id,
          },
@@ -106,9 +102,9 @@ const deleteMahasiswa = async (req, res) => {
    }
 };
 
-const detailMahasiswa = async (req, res) => {
+const detailRuangan = async (req, res) => {
    try {
-      await Mahasiswa.findOne({
+      await Ruangan.findOne({
          where: {
             id: req.params.id,
          },
@@ -140,9 +136,9 @@ const detailMahasiswa = async (req, res) => {
 };
 
 module.exports = {
-   getAllMahasiswa,
-   createNewMahasiswa,
-   updateMahasiswa,
-   deleteMahasiswa,
-   detailMahasiswa,
+   getAllRuangan,
+   createNewRuangan,
+   updateRuangan,
+   deleteRuangan,
+   detailRuangan,
 };
