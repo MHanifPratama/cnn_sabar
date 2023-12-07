@@ -55,8 +55,8 @@ const updateRuangan = async (req, res) => {
          }
       ).then(function (result) {
          if (result == 0) {
-            return res.json({
-               message: "Data not found",
+            return res.status(404).json({
+               message: "Data not found or could not be updated",
                data: [],
             });
          } else {
@@ -67,9 +67,9 @@ const updateRuangan = async (req, res) => {
          }
       });
    } catch (error) {
-      return res.json({
+      return res.status(500).json({
          message: "Server Error",
-         error: error,
+         error: error.message,
       });
    }
 };
@@ -83,8 +83,8 @@ const deleteRuangan = async (req, res) => {
          },
       }).then(function (result) {
          if (result == 0) {
-            return res.json({
-               message: "Data not found",
+            return res.status(404).json({
+               message: "Data not found while delete",
                data: [],
             });
          } else {
@@ -95,9 +95,9 @@ const deleteRuangan = async (req, res) => {
          }
       });
    } catch (error) {
-      return res.json({
+      return res.status(500).json({
          message: "Server Error",
-         error: error,
+         error: error.message,
       });
    }
 };
@@ -110,9 +110,9 @@ const detailRuangan = async (req, res) => {
          },
       }).then(function (result) {
          if (result == null) {
-            return res.json({
-               message: "Data not found",
-               data: {},
+            return res.status(404).json({
+               message: "Data not found or could not be showed",
+               data: [],
             });
          } else {
             return res.json({
@@ -123,8 +123,8 @@ const detailRuangan = async (req, res) => {
       });
    } catch (error) {
       if (error.code === 0) {
-         return res.json({
-            message: "Data not found",
+         return res.status(404).json({
+            message: "Data not found or could not be updated",
             data: {},
          });
       }
