@@ -1,8 +1,8 @@
-const { Ruangan } = require("../models");
+const { Kelas } = require("../models");
 
-const getAllRuangan = async (req, res) => {
+const getAllKelas = async (req, res) => {
    try {
-      const data = await Ruangan.findAll();
+      const data = await Kelas.findAll();
       return res.json({
          message: "Success",
          data: data,
@@ -16,17 +16,17 @@ const getAllRuangan = async (req, res) => {
    }
 };
 
-const createNewRuangan = async (req, res) => {
+const createNewKelas = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.id_ruangan || !body.nama_ruangan) {
+      if (!body.nama_Kelas) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
          });
       }
-      const data = await Ruangan.create({
-         nama_ruangan: body.nama_ruangan,
+      const data = await Kelas.create({
+         nama_Kelas: body.nama_Kelas,
       });
       return res.status(200).json({
          message: "Success",
@@ -40,13 +40,13 @@ const createNewRuangan = async (req, res) => {
    }
 };
 
-const updateRuangan = async (req, res) => {
+const updateKelas = async (req, res) => {
    try {
       const { id } = req.params;
       const { body } = req;
-      await Ruangan.update(
+      await Kelas.update(
          {
-            nama_ruangan: body.nama_ruangan,
+            nama_Kelas: body.nama_Kelas,
          },
          {
             where: {
@@ -74,10 +74,10 @@ const updateRuangan = async (req, res) => {
    }
 };
 
-const deleteRuangan = async (req, res) => {
+const deleteKelas = async (req, res) => {
    try {
       const { id } = req.params;
-      await Ruangan.destroy({
+      await Kelas.destroy({
          where: {
             id: id,
          },
@@ -102,9 +102,9 @@ const deleteRuangan = async (req, res) => {
    }
 };
 
-const detailRuangan = async (req, res) => {
+const detailKelas = async (req, res) => {
    try {
-      await Ruangan.findOne({
+      await Kelas.findOne({
          where: {
             id: req.params.id,
          },
@@ -136,9 +136,9 @@ const detailRuangan = async (req, res) => {
 };
 
 module.exports = {
-   getAllRuangan,
-   createNewRuangan,
-   updateRuangan,
-   deleteRuangan,
-   detailRuangan,
+   getAllKelas,
+   createNewKelas,
+   updateKelas,
+   deleteKelas,
+   detailKelas,
 };
