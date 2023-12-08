@@ -2,7 +2,7 @@ const express = require("express");
 const Ruangancontroller = require("../controller/ruangan");
 const routes = express.Router();
 
-routes.get("/", Ruangancontroller.getAllRuangan);
+routes.get("/ruangan", Ruangancontroller.getAllRuangan);
 routes.post("/", Ruangancontroller.createNewRuangan);
 routes.get("/:id", Ruangancontroller.detailRuangan);
 routes.patch("/:id", Ruangancontroller.updateRuangan);
