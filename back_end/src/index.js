@@ -10,6 +10,7 @@ const dosenRoutes = require("./routes/dosen.js");
 const mahasiswaRoutes = require("./routes/mahasiswa.js");
 const userRoutes = require("./routes/user.js");
 const ruanganRoutes = require("./routes/ruangan.js");
+const kelasRoutes = require("./routes/kelas.js");
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/dosen", middlewareValidation, middlewareRoles.permission_role("admin"), dosenRoutes);
 app.use("/api/v1/mahasiswa", middlewareValidation, middlewareRoles.permission_role("admin"), mahasiswaRoutes);
 app.use("/api/v1/ruangan", middlewareValidation, middlewareRoles.permission_role("admin"), ruanganRoutes);
+app.use("/api/v1/kelas", middlewareValidation, middlewareRoles.permission_role("admin"), kelasRoutes);
 
 app.use("/", (req, res) => {
    res.json({
