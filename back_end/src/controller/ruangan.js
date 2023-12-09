@@ -88,7 +88,7 @@ const deleteRuangan = async (req, res) => {
                data: [],
             });
          } else {
-            return resstatus(200).json({
+            return res.status(200).json({
                message: "Success",
                data: [],
             });
