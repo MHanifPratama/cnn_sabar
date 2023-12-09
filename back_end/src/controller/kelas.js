@@ -19,14 +19,14 @@ const getAllKelas = async (req, res) => {
 const createNewKelas = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.nama_Kelas) {
+      if (!body.nama_kelas) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
          });
       }
       const data = await Kelas.create({
-         nama_Kelas: body.nama_Kelas,
+         nama_kelas: body.nama_kelas,
       });
       return res.status(200).json({
          message: "Success",
@@ -46,7 +46,7 @@ const updateKelas = async (req, res) => {
       const { body } = req;
       await Kelas.update(
          {
-            nama_Kelas: body.nama_Kelas,
+            nama_kelas: body.nama_kelas,
          },
          {
             where: {
