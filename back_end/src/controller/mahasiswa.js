@@ -19,7 +19,7 @@ const getAllMahasiswa = async (req, res) => {
 const createNewMahasiswa = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.npm || !body.nama || !body.alamat) {
+      if (!body.npm || !body.nama_mahasiswa || !body.alamat) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
@@ -27,8 +27,9 @@ const createNewMahasiswa = async (req, res) => {
       }
       const data = await Mahasiswa.create({
          npm: body.npm,
-         nama_mahasiswa: body.nama,
-         alamat: body.alamat,
+
+         nama_mahasiswa: body.nama_mahasiswa,
+
       });
       return res.json({
          message: "Success",
@@ -49,8 +50,9 @@ const updateMahasiswa = async (req, res) => {
       await Mahasiswa.update(
          {
             npm: body.npm,
-            nama_mahasiswa: body.nama,
-            alamat: body.alamat,
+
+            nama_mahasiswa: body.nama_mahasiswa,
+
          },
          {
             where: {
