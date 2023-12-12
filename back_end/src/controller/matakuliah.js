@@ -1,8 +1,8 @@
-const { Mahasiswa } = require("../models");
+const { MataKuliah } = require("../models");
 
-const getAllMahasiswa = async (req, res) => {
+const getAllMataKuliah = async (req, res) => {
    try {
-      const data = await Mahasiswa.findAll();
+      const data = await MataKuliah.findAll();
       return res.json({
          message: "Success",
          data: data,
@@ -16,41 +16,47 @@ const getAllMahasiswa = async (req, res) => {
    }
 };
 
-const createNewMahasiswa = async (req, res) => {
+const createNewMataKuliah = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.npm || !body.nama_mahasiswa || !body.email) {
+      if (!body.title || !body.sks) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
          });
       }
-      const data = await Mahasiswa.create({
-         npm: body.npm,
-         email: body.email,
-         nama_mahasiswa: body.nama_mahasiswa,
+      const data = await MataKuliah.create({
+         title: body.title,
+         sks: body.sks,
+         id_kelas: body.id_kelas,
+         id_periode: body.id_periode,
+         id_ruangan: body.id_ruangan,
+         jadwal: body.jadwal,
       });
-      return res.json({
+      return res.status(200).json({
          message: "Success",
          data: body,
       });
    } catch (error) {
-      return res.json({
+      return res.status(500).json({
          message: "Server Error",
          error: error,
       });
    }
 };
 
-const updateMahasiswa = async (req, res) => {
+const updateMataKuliah = async (req, res) => {
    try {
       const { id } = req.params;
       const { body } = req;
-      await Mahasiswa.update(
+      await MataKuliah.update(
          {
-            npm: body.npm,
-            email: body.email,
-            nama_mahasiswa: body.nama_mahasiswa,
+            title: body.title,
+            sks: body.sks,
+            id_kelas: body.id_kelas,
+            id_periode: body.id_periode,
+            id_ruangan: body.id_ruangan,
+            jadwal: body.jadwal,
          },
          {
             where: {
@@ -59,67 +65,67 @@ const updateMahasiswa = async (req, res) => {
          }
       ).then(function (result) {
          if (result == 0) {
-            return res.json({
-               message: "Data not found",
+            return res.status(404).json({
+               message: "Data not found or could not be updated",
                data: [],
             });
          } else {
-            return res.json({
+            return res.status(200).json({
                message: "Success",
                data: body,
             });
          }
       });
    } catch (error) {
-      return res.json({
+      return res.status(500).json({
          message: "Server Error",
-         error: error,
+         error: error.message,
       });
    }
 };
 
-const deleteMahasiswa = async (req, res) => {
+const deleteMataKuliah = async (req, res) => {
    try {
       const { id } = req.params;
-      await Mahasiswa.destroy({
+      await MataKuliah.destroy({
          where: {
             id: id,
          },
       }).then(function (result) {
          if (result == 0) {
-            return res.json({
-               message: "Data not found",
+            return res.status(404).json({
+               message: "Data not found while delete",
                data: [],
             });
          } else {
-            return res.json({
+            return res.status(200).json({
                message: "Success",
                data: [],
             });
          }
       });
    } catch (error) {
-      return res.json({
+      return res.status(500).json({
          message: "Server Error",
-         error: error,
+         error: error.message,
       });
    }
 };
 
-const detailMahasiswa = async (req, res) => {
+const detailMataKuliah = async (req, res) => {
    try {
-      await Mahasiswa.findOne({
+      await MataKuliah.findOne({
          where: {
             id: req.params.id,
          },
       }).then(function (result) {
          if (result == null) {
-            return res.json({
-               message: "Data not found",
-               data: {},
+            return res.status(404).json({
+               message: "Data not found or could not be showed",
+               data: [],
             });
          } else {
-            return res.json({
+            return res.status(200).json({
                message: "Success",
                data: result,
             });
@@ -127,12 +133,12 @@ const detailMahasiswa = async (req, res) => {
       });
    } catch (error) {
       if (error.code === 0) {
-         return res.json({
-            message: "Data not found",
+         return res.status(404).json({
+            message: "Data not found or could not be updated",
             data: {},
          });
       }
-      return res.json({
+      return res.status(500).json({
          message: "Server Error",
          error: error,
       });
@@ -140,9 +146,9 @@ const detailMahasiswa = async (req, res) => {
 };
 
 module.exports = {
-   getAllMahasiswa,
-   createNewMahasiswa,
-   updateMahasiswa,
-   deleteMahasiswa,
-   detailMahasiswa,
+   getAllMataKuliah,
+   createNewMataKuliah,
+   updateMataKuliah,
+   deleteMataKuliah,
+   detailMataKuliah,
 };
