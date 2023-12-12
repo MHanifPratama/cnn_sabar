@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       {
          npm: DataTypes.STRING,
          nama_mahasiswa: DataTypes.STRING,
-         alamat: DataTypes.STRING,
+         email: DataTypes.STRING,
       },
       {
          sequelize,
