@@ -13,7 +13,7 @@ const validation_token = (req,res,next) => {
         req.userData = decoded
     }
     catch(error){
-        return res.stjson({
+        return res.json({
             message: "Invalid Token"
         })
     }

@@ -27,7 +27,7 @@ const createNewMahasiswa = async (req, res) => {
       }
       const data = await Mahasiswa.create({
          npm: body.npm,
-
+         alamat: body.alamat,
          nama_mahasiswa: body.nama_mahasiswa,
 
       });
@@ -50,7 +50,7 @@ const updateMahasiswa = async (req, res) => {
       await Mahasiswa.update(
          {
             npm: body.npm,
-
+            alamat: body.alamat,
             nama_mahasiswa: body.nama_mahasiswa,
 
          },
