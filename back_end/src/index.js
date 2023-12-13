@@ -14,6 +14,8 @@ const ruanganRoutes = require("./routes/ruangan.js");
 const kelasRoutes = require("./routes/kelas.js");
 const periodeRoutes = require("./routes/periode.js");
 const peminatRoutes = require("./routes/peminat.js");
+const matakuliahRoutes = require("./routes/matakuliah.js");
+const pengampuRoutes = require("./routes/pengampu.js");
 
 const app = express();
 app.use(cors());
@@ -28,6 +30,8 @@ app.use("/api/v1/mahasiswa", middlewareValidation, middlewareRoles.permission_ro
 app.use("/api/v1/ruangan", middlewareValidation, middlewareRoles.permission_role("admin"), ruanganRoutes);
 app.use("/api/v1/kelas", middlewareValidation, middlewareRoles.permission_role("admin"), kelasRoutes);
 app.use("/api/v1/peminat", middlewareValidation, middlewareRoles.permission_role("admin"), peminatRoutes);
+app.use("/api/v1/matakuliah", middlewareValidation, middlewareRoles.permission_role("admin"), matakuliahRoutes);
+app.use("/api/v1/pengampu", middlewareValidation, middlewareRoles.permission_role("admin"), pengampuRoutes);
 
 app.use("/", (req, res) => {
    res.json({
