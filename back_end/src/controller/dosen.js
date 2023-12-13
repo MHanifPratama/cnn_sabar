@@ -145,10 +145,27 @@ const detailDosen = async (req,res) => {
     }
 }
 
+const countDosen = async (req, res) => {
+    try {
+        const data = await Dosen.count();
+        return res.json({
+            message: "Success",
+            data: data
+        })
+    }
+    catch (error) {
+        return res.json({
+            message: "Server Error",
+            error: error
+        })
+    }
+}
+
 module.exports = {
     getAllDosen,
     createNewDosen,
     updateDosen,
     deleteDosen,
-    detailDosen
+    detailDosen,
+    countDosen
 }

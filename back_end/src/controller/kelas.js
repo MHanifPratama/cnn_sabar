@@ -135,10 +135,27 @@ const detailKelas = async (req, res) => {
    }
 };
 
+const countKelas = async (req, res) => {
+   try {
+       const data = await Kelas.count();
+       return res.json({
+           message: "Success",
+           data: data
+       })
+   }
+   catch (error) {
+       return res.json({
+           message: "Server Error",
+           error: error
+       })
+   }
+}
+
 module.exports = {
    getAllKelas,
    createNewKelas,
    updateKelas,
    deleteKelas,
    detailKelas,
+   countKelas
 };

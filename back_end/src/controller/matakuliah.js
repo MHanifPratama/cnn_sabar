@@ -1,8 +1,8 @@
-const { Ruangan } = require("../models");
+const { MataKuliah } = require("../models");
 
-const getAllRuangan = async (req, res) => {
+const getAllMataKuliah = async (req, res) => {
    try {
-      const data = await Ruangan.findAll();
+      const data = await MataKuliah.findAll();
       return res.json({
          message: "Success",
          data: data,
@@ -16,17 +16,22 @@ const getAllRuangan = async (req, res) => {
    }
 };
 
-const createNewRuangan = async (req, res) => {
+const createNewMataKuliah = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.id_ruangan || !body.nama_ruangan) {
+      if (!body.title || !body.sks) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
          });
       }
-      const data = await Ruangan.create({
-         nama_ruangan: body.nama_ruangan,
+      const data = await MataKuliah.create({
+         title: body.title,
+         sks: body.sks,
+         id_kelas: body.id_kelas,
+         id_periode: body.id_periode,
+         id_ruangan: body.id_ruangan,
+         jadwal: body.jadwal,
       });
       return res.status(200).json({
          message: "Success",
@@ -40,13 +45,18 @@ const createNewRuangan = async (req, res) => {
    }
 };
 
-const updateRuangan = async (req, res) => {
+const updateMataKuliah = async (req, res) => {
    try {
       const { id } = req.params;
       const { body } = req;
-      await Ruangan.update(
+      await MataKuliah.update(
          {
-            nama_ruangan: body.nama_ruangan,
+            title: body.title,
+            sks: body.sks,
+            id_kelas: body.id_kelas,
+            id_periode: body.id_periode,
+            id_ruangan: body.id_ruangan,
+            jadwal: body.jadwal,
          },
          {
             where: {
@@ -74,10 +84,10 @@ const updateRuangan = async (req, res) => {
    }
 };
 
-const deleteRuangan = async (req, res) => {
+const deleteMataKuliah = async (req, res) => {
    try {
       const { id } = req.params;
-      await Ruangan.destroy({
+      await MataKuliah.destroy({
          where: {
             id: id,
          },
@@ -102,9 +112,9 @@ const deleteRuangan = async (req, res) => {
    }
 };
 
-const detailRuangan = async (req, res) => {
+const detailMataKuliah = async (req, res) => {
    try {
-      await Ruangan.findOne({
+      await MataKuliah.findOne({
          where: {
             id: req.params.id,
          },
@@ -135,9 +145,10 @@ const detailRuangan = async (req, res) => {
    }
 };
 
-const countRuangan = async (req, res) => {
+
+const countMataKuliah = async (req, res) => {
    try {
-       const data = await Ruangan.count();
+       const data = await MataKuliah.count();
        return res.json({
            message: "Success",
            data: data
@@ -152,10 +163,10 @@ const countRuangan = async (req, res) => {
 }
 
 module.exports = {
-   getAllRuangan,
-   createNewRuangan,
-   updateRuangan,
-   deleteRuangan,
-   detailRuangan,
-   countRuangan
+   getAllMataKuliah,
+   createNewMataKuliah,
+   updateMataKuliah,
+   deleteMataKuliah,
+   detailMataKuliah,
+   countMataKuliah
 };

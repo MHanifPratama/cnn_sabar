@@ -141,10 +141,28 @@ const detailMahasiswa = async (req, res) => {
    }
 };
 
+
+const countMahasiswa = async (req, res) => {
+   try {
+       const data = await Mahasiswa.count();
+       return res.json({
+           message: "Success",
+           data: data
+       })
+   }
+   catch (error) {
+       return res.json({
+           message: "Server Error",
+           error: error
+       })
+   }
+}
+
 module.exports = {
    getAllMahasiswa,
    createNewMahasiswa,
    updateMahasiswa,
    deleteMahasiswa,
    detailMahasiswa,
+   countMahasiswa
 };
