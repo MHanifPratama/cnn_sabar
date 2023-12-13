@@ -133,6 +133,23 @@ const detailPeriode = async(req,res) => {
       });
    }
 
+};
+
+
+const countPeriode = async (req, res) => {
+   try {
+       const data = await Periode.count();
+       return res.json({
+           message: "Success",
+           data: data
+       })
+   }
+   catch (error) {
+       return res.json({
+           message: "Server Error",
+           error: error
+       })
+   }
 }
 
 module.exports = {
@@ -140,5 +157,6 @@ module.exports = {
     createNewPeriode,
     updatePeriode,
     deletePeriode,
-    detailPeriode
+    detailPeriode,
+   countPeriode
 }

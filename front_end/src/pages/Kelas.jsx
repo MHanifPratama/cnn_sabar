@@ -5,6 +5,7 @@ import { Label, TextInput, Button, Modal, Table } from 'flowbite-react';
 import { useState, useEffect } from "react";
 import FieldRequirement from "../components/FieldRequirement";
 import SuccessModal from "../components/SuccessModal";
+import { GrSearch } from "react-icons/gr";
 import TokenExpired from "../utils/TokenExpired";
 
 const Kelas = () => {
@@ -156,7 +157,7 @@ const Kelas = () => {
                             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                             required
                         />
-                        <Button onClick={() => {
+                        <Button disabled={!nama} onClick={() => {
                             setShowAddModal(false);
                             kelasAddHandler();
                             }}>Add Kelas</Button>
@@ -180,7 +181,7 @@ const Kelas = () => {
                                     required
                                 />
 
-                            <Button onClick={() => {
+                            <Button disabled={!nama} onClick={() => {
                                 setShowEditModal(false);
                                 kelasEditHandler();
                             }}>Edit Kelas
@@ -193,17 +194,17 @@ const Kelas = () => {
                 <div className="flex max-w-md m-7 justify-between items-center relative">
                     <div className="mb-2 block flex-grow">
                         <Label className="text-xl" htmlFor="base" value="Search Kelas" />
-                        <TextInput className="mt-2" id="base" type="text" sizing="md" onChange={(e) => setSearch(e.target.value)} />
+                        <TextInput placeholder="search" rightIcon={GrSearch} className="mt-2" id="base" type="text" sizing="md" onChange={(e) => setSearch(e.target.value)} />
                     </div>
                     <div className="absolute right-0" style={{ left: '250%' }}>
                         <Button onClick={() => setShowAddModal(true)} className="p-3 rounded-full text-white">+</Button>
                     </div>
                 </div>
 
-                <div className="w-full overflow-x-auto h-96 overflow-y-auto" style={{ height: "80%" }}>
+                <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "80%", width: "95%"}}>
                     <Table striped style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <Table.Head className="sticky top-0 z-10 bg-cyan-600">
-                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '80%' }}>Nama</Table.HeadCell>
+                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '80%' }}>Kelas</Table.HeadCell>
                             <Table.HeadCell className="bg-cyan-600 text-white flex item-center" style={{ width: '20%' }}>
                                 Action
                             </Table.HeadCell>

@@ -3,6 +3,7 @@ const KelasController = require("../controller/kelas.js");
 const routes = express.Router();
 
 routes.get("/", KelasController.getAllKelas);
+routes.get("/count", KelasController.countKelas);
 routes.post("/", KelasController.createNewKelas);
 routes.get("/:id", KelasController.detailKelas);
 routes.patch("/:id", KelasController.updateKelas);

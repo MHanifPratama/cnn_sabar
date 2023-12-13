@@ -4,6 +4,7 @@ const routes = express.Router();
 
 
 routes.get("/", PeriodeController.getAllPeriode);
+routes.get("/count", PeriodeController.countPeriode);
 routes.post("/", PeriodeController.createNewPeriode);
 routes.get("/:id", PeriodeController.detailPeriode);
 routes.patch("/:id", PeriodeController.updatePeriode);

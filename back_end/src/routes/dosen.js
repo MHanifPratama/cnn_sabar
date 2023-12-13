@@ -4,8 +4,9 @@ const routes = express.Router();
 
 
 routes.get("/", DosenController.getAllDosen);
-routes.post("/", DosenController.createNewDosen);
+routes.get("/count", DosenController.countDosen);
 routes.get("/:id", DosenController.detailDosen);
+routes.post("/", DosenController.createNewDosen);
 routes.patch("/:id", DosenController.updateDosen);
 routes.delete("/:id", DosenController.deleteDosen);
 
