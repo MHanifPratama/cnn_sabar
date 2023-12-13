@@ -1,11 +1,11 @@
 const express = require("express");
-const pengampuController = require("../controller/pengampu.js");
+const PengampuController = require("../controller/pengampu.js");
 const routes = express.Router();
 
-routes.get("/", pengampuController.getAllPengampu);
-routes.post("/", pengampuController.createNewPengampu);
-routes.get("/:id", pengampuController.detailPengampu);
-routes.patch("/:id", pengampuController.updatePengampu);
-routes.delete("/:id", pengampuController.deletePengampu);
+routes.get("/", PengampuController.getAllPengampu);
+routes.post("/", PengampuController.createNewPengampu);
+routes.get("/:id", PengampuController.detailPengampu);
+routes.patch("/:id", PengampuController.updatePengampu);
+routes.delete("/:id", PengampuController.deletePengampu);
 
 module.exports = routes;

@@ -29,8 +29,8 @@ app.use("/api/v1/dosen", middlewareValidation, middlewareRoles.permission_role("
 app.use("/api/v1/mahasiswa", middlewareValidation, middlewareRoles.permission_role("admin"), mahasiswaRoutes);
 app.use("/api/v1/ruangan", middlewareValidation, middlewareRoles.permission_role("admin"), ruanganRoutes);
 app.use("/api/v1/kelas", middlewareValidation, middlewareRoles.permission_role("admin"), kelasRoutes);
-app.use("/api/v1/peminat", middlewareValidation, middlewareRoles.permission_role("admin"), peminatRoutes);
 app.use("/api/v1/matakuliah", middlewareValidation, middlewareRoles.permission_role("admin"), matakuliahRoutes);
+app.use("/api/v1/peminat", middlewareValidation, middlewareRoles.permission_role("admin"), peminatRoutes);
 app.use("/api/v1/pengampu", middlewareValidation, middlewareRoles.permission_role("admin"), pengampuRoutes);
 
 app.use("/", (req, res) => {

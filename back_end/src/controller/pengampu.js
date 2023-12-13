@@ -19,7 +19,7 @@ const getAllPengampu = async (req, res) => {
 const createNewPengampu = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.title || !body.sks) {
+      if (!body.id_dosen || !body.id_mk) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
