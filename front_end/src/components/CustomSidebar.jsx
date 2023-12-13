@@ -1,21 +1,24 @@
 'use client';
 import { Sidebar } from 'flowbite-react';
 import { useState } from 'react';
-import { HiArrowSmRight, HiChartPie, HiUser, HiViewBoards } from 'react-icons/hi';
+import { HiArrowSmRight, HiChartPie, HiViewBoards } from 'react-icons/hi';
 import { SiGoogleclassroom } from "react-icons/si";
-import { useNavigate } from "react-router-dom"
-import { MdMapsHomeWork } from "react-icons/md";
-import { DarkThemeToggle } from 'flowbite-react';
+import { useNavigate, useLocation } from "react-router-dom"
 import { BsPersonFill } from "react-icons/bs";
-import { RiContactsFill } from "react-icons/ri";
+import { MdMeetingRoom } from "react-icons/md";
 import { BsPersonLinesFill } from "react-icons/bs";
 import { MdDateRange } from "react-icons/md";
 import ConfirmLogoutModal from './ConfirmLogoutModal';
 
 const CustomSidebar = () => {
-
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
     const [showModal, setShowModal] = useState(false);
+    const [activeMenuItem, setActiveMenuItem] = useState('Dashboard');
+
+    const handleItemClick = (itemName) => {
+        setActiveMenuItem(itemName);
+    };
 
     return (
         <div className='min-h-screen'>  
@@ -27,30 +30,83 @@ const CustomSidebar = () => {
                 </div>
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
-                        <Sidebar.Item icon={HiChartPie} className="hover:cursor-pointer" onClick={() => navigate('/')}>
+                        <Sidebar.Item
+                            icon={HiChartPie}
+                            className={`hover:cursor-pointer ${location.pathname === '/' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/');
+                                handleItemClick('Dashboard');
+                            }}
+                        >
                             Dashboard
                         </Sidebar.Item>
-                        <Sidebar.Item icon={HiViewBoards} className="hover:cursor-pointer" onClick={() => navigate('/absensi')}>
+                        <Sidebar.Item
+                            icon={HiViewBoards}
+                            className={`hover:cursor-pointer ${location.pathname === '/absensi' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/absensi');
+                                handleItemClick('Absensi');
+                            }}
+                        >
                             Absensi
                         </Sidebar.Item>
-                        <Sidebar.Item icon={BsPersonLinesFill} className="hover:cursor-pointer" onClick={() => navigate('/dosen')}>
+                        <Sidebar.Item
+                            icon={BsPersonLinesFill}
+                            className={`hover:cursor-pointer ${location.pathname === '/dosen' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/dosen');
+                                handleItemClick('Dosen');
+                            }}
+                        >
                             Dosen
                         </Sidebar.Item>
-                        <Sidebar.Item icon={BsPersonFill} className="hover:cursor-pointer" onClick={() => navigate('/mahasiswa')}>
+                        <Sidebar.Item
+                            icon={BsPersonFill}
+                            className={`hover:cursor-pointer ${location.pathname === '/mahasiswa' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/mahasiswa');
+                                handleItemClick('Mahasiswa');
+                            }}
+                        >
                             Mahasiswa
                         </Sidebar.Item>
-                        <Sidebar.Item icon={SiGoogleclassroom} className="hover:cursor-pointer" onClick={() => navigate('/kelas')}>
+                        <Sidebar.Item
+                            icon={SiGoogleclassroom}
+                            className={`hover:cursor-pointer ${location.pathname === '/kelas' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/kelas');
+                                handleItemClick('Kelas');
+                            }}
+                        >
                             Kelas
                         </Sidebar.Item>
-                        <Sidebar.Item icon={MdDateRange} className="hover:cursor-pointer" onClick={() => navigate('/periode')}>
+                        <Sidebar.Item
+                            icon={MdDateRange}
+                            className={`hover:cursor-pointer ${location.pathname === '/periode' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/periode');
+                                handleItemClick('Periode');
+                            }}
+                        >
                             Periode
                         </Sidebar.Item>
-                        <Sidebar.Item icon={MdMapsHomeWork} className="hover:cursor-pointer" onClick={() => navigate('/ruangan')}>
+                        <Sidebar.Item
+                            icon={MdMeetingRoom}
+                            className={`hover:cursor-pointer ${location.pathname === '/ruangan' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/ruangan');
+                                handleItemClick('Ruangan');
+                            }}
+                        >
                             Ruangan
                         </Sidebar.Item>
-                        <Sidebar.Item icon={HiArrowSmRight} className="hover:cursor-pointer" onClick={() => {
-                            setShowModal(true);
-                        }}>
+                        <Sidebar.Item
+                            icon={HiArrowSmRight}
+                            className={`hover:cursor-pointer`}
+                            onClick={() => {
+                                setShowModal(true);
+                            }}
+                        >
                             Logout
                         </Sidebar.Item>
                     </Sidebar.ItemGroup>
@@ -61,4 +117,4 @@ const CustomSidebar = () => {
     )
 }
 
-export default CustomSidebar
+export default CustomSidebar;
