@@ -1,0 +1,120 @@
+'use client';
+import { Sidebar } from 'flowbite-react';
+import { useState } from 'react';
+import { HiArrowSmRight, HiChartPie, HiViewBoards } from 'react-icons/hi';
+import { SiGoogleclassroom } from "react-icons/si";
+import { useNavigate, useLocation } from "react-router-dom"
+import { BsPersonFill } from "react-icons/bs";
+import { MdMeetingRoom } from "react-icons/md";
+import { BsPersonLinesFill } from "react-icons/bs";
+import { MdDateRange } from "react-icons/md";
+import ConfirmLogoutModal from './ConfirmLogoutModal';
+
+const CustomSidebar = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [showModal, setShowModal] = useState(false);
+    const [activeMenuItem, setActiveMenuItem] = useState('Dashboard');
+
+    const handleItemClick = (itemName) => {
+        setActiveMenuItem(itemName);
+    };
+
+    return (
+        <div className='min-h-screen'>  
+            <Sidebar aria-label="Default sidebar example" className="border-r border-gray-300">
+                <div className='flex item-center justify-center'>
+                    <h1 className='font-bold m-3 text-xl'>
+                        CNN Sabar
+                    </h1>
+                </div>
+                <Sidebar.Items>
+                    <Sidebar.ItemGroup>
+                        <Sidebar.Item
+                            icon={HiChartPie}
+                            className={`hover:cursor-pointer ${location.pathname === '/' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/');
+                                handleItemClick('Dashboard');
+                            }}
+                        >
+                            Dashboard
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={HiViewBoards}
+                            className={`hover:cursor-pointer ${location.pathname === '/absensi' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/absensi');
+                                handleItemClick('Absensi');
+                            }}
+                        >
+                            Absensi
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={BsPersonLinesFill}
+                            className={`hover:cursor-pointer ${location.pathname === '/dosen' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/dosen');
+                                handleItemClick('Dosen');
+                            }}
+                        >
+                            Dosen
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={BsPersonFill}
+                            className={`hover:cursor-pointer ${location.pathname === '/mahasiswa' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/mahasiswa');
+                                handleItemClick('Mahasiswa');
+                            }}
+                        >
+                            Mahasiswa
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={SiGoogleclassroom}
+                            className={`hover:cursor-pointer ${location.pathname === '/kelas' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/kelas');
+                                handleItemClick('Kelas');
+                            }}
+                        >
+                            Kelas
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={MdDateRange}
+                            className={`hover:cursor-pointer ${location.pathname === '/periode' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/periode');
+                                handleItemClick('Periode');
+                            }}
+                        >
+                            Periode
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={MdMeetingRoom}
+                            className={`hover:cursor-pointer ${location.pathname === '/ruangan' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/ruangan');
+                                handleItemClick('Ruangan');
+                            }}
+                        >
+                            Ruangan
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={HiArrowSmRight}
+                            className={`hover:cursor-pointer`}
+                            onClick={() => {
+                                setShowModal(true);
+                            }}
+                        >
+                            Logout
+                        </Sidebar.Item>
+                    </Sidebar.ItemGroup>
+                </Sidebar.Items>
+            </Sidebar>
+            <ConfirmLogoutModal showModal={showModal} setShowModal={setShowModal} />
+        </div>
+    )
+}
+
+export default CustomSidebar;

@@ -7,7 +7,7 @@ module.exports = {
          "kelas",
          [
             {
-               nama_kelas: "LAB RPL",
+               nama_kelas: "A 2020",
                createdAt: new Date(),
                updatedAt: new Date(),
             },

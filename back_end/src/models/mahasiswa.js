@@ -8,14 +8,18 @@ module.exports = (sequelize, DataTypes) => {
        * The `models/index` file will call this method automatically.
        */
       static associate(models) {
-         // define association here
+         Mahasiswa.hasMany(models.Peminat, { foreignKey: "id_mahasiswa" });
       }
    }
    Mahasiswa.init(
       {
-         npm: DataTypes.STRING,
+         npm: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+         },
          nama_mahasiswa: DataTypes.STRING,
-         alamat: DataTypes.STRING,
+         email: DataTypes.STRING,
       },
       {
          sequelize,
