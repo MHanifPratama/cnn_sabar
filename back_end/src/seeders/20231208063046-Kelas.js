@@ -11,6 +11,16 @@ module.exports = {
                createdAt: new Date(),
                updatedAt: new Date(),
             },
+            {
+               nama_kelas: "A 2022",
+               createdAt: new Date(),
+               updatedAt: new Date(),
+            },
+            {
+               nama_kelas: "C 2023",
+               createdAt: new Date(),
+               updatedAt: new Date(),
+            },
          ],
          {}
       );
