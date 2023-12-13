@@ -145,10 +145,28 @@ const detailMataKuliah = async (req, res) => {
    }
 };
 
+
+const countMataKuliah = async (req, res) => {
+   try {
+       const data = await MataKuliah.count();
+       return res.json({
+           message: "Success",
+           data: data
+       })
+   }
+   catch (error) {
+       return res.json({
+           message: "Server Error",
+           error: error
+       })
+   }
+}
+
 module.exports = {
    getAllMataKuliah,
    createNewMataKuliah,
    updateMataKuliah,
    deleteMataKuliah,
    detailMataKuliah,
+   countMataKuliah
 };

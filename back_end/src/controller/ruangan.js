@@ -135,10 +135,27 @@ const detailRuangan = async (req, res) => {
    }
 };
 
+const countRuangan = async (req, res) => {
+   try {
+       const data = await Ruangan.count();
+       return res.json({
+           message: "Success",
+           data: data
+       })
+   }
+   catch (error) {
+       return res.json({
+           message: "Server Error",
+           error: error
+       })
+   }
+}
+
 module.exports = {
    getAllRuangan,
    createNewRuangan,
    updateRuangan,
    deleteRuangan,
    detailRuangan,
+   countRuangan
 };
