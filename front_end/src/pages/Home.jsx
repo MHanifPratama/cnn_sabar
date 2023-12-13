@@ -1,16 +1,10 @@
 import CustomSidebar from "../components/CustomSidebar";
 
 const Home = () => {
-
-    
     return (
-        <div className="flex">
-            <CustomSidebar />
-
-            
-
-            
-        </div>
+            <div className="flex">
+                <CustomSidebar />
+            </div>
     );
 }
 

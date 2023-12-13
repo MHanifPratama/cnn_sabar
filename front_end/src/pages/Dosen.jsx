@@ -5,6 +5,7 @@ import { Label, TextInput, Button, Modal, Table } from 'flowbite-react';
 import { useState, useEffect } from "react";
 import FieldRequirement from "../components/FieldRequirement";
 import SuccessModal from "../components/SuccessModal";
+import { GrSearch } from "react-icons/gr";
 import TokenExpired from "../utils/TokenExpired";
 
 const Dosen = () => {
@@ -207,7 +208,7 @@ const Dosen = () => {
                         />
 
                         </div>
-                        <Button onClick={() => {
+                        <Button disabled={!nip || !nama || !email} onClick={() => {
                             setShowAddModal(false);
                             dosenAddHandler();
                             }}>Add New Dosen</Button>
@@ -269,7 +270,7 @@ const Dosen = () => {
                                     required
                                 />
                             </div>
-                            <Button onClick={() => {
+                            <Button disabled={!nip || !nama || !email} onClick={() => {
                                 setShowEditModal(false);
                                 dosenEditHandler();
                             }}>Edit Dosen</Button>
@@ -280,15 +281,15 @@ const Dosen = () => {
                 <div className="flex max-w-md m-7 justify-between items-center relative">
                     <div className="mb-2 block flex-grow">
                         <Label className="text-xl" htmlFor="base" value="Search Dosen" />
-                        <TextInput className="mt-2" id="base" type="text" sizing="md" onChange={(e) => setSearch(e.target.value)} />
+                        <TextInput className="mt-2" placeholder="search" rightIcon={GrSearch} id="base" type="text" sizing="md" onChange={(e) => setSearch(e.target.value)} />
                     </div>
                     <div className="absolute right-0" style={{ left: '250%' }}>
                         <Button onClick={() => setShowAddModal(true)} className="p-3 rounded-full text-white">+</Button>
                     </div>
                 </div>
 
-                <div className="w-full overflow-x-auto overflow-y-auto" style={{ height: "80%" }}>
-                    <Table striped style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "80%", width: "95%"}}>
+                    <Table className="" striped style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <Table.Head className="sticky top-0 z-10 bg-cyan-600">
                             <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '30%' }}>NIP</Table.HeadCell>
                             <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '30%' }}>Nama</Table.HeadCell>
