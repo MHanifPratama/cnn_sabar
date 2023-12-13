@@ -3,13 +3,13 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
    class Peminat extends Model {
       static associate(models) {
-         Peminat.belongsTo(models.Mahasiswa, { foreignKey: "npm" });
+         Peminat.belongsTo(models.Mahasiswa, { foreignKey: "id_mahasiswa" });
          Peminat.belongsTo(models.MataKuliah, { foreignKey: "id_mk" });
       }
    }
    Peminat.init(
       {
-         npm: DataTypes.STRING,
+         id_mahasiswa: DataTypes.INTEGER,
          id_mk: DataTypes.INTEGER,
       },
       {

@@ -9,11 +9,11 @@ module.exports = {
             primaryKey: true,
             type: Sequelize.INTEGER,
          },
-         npm: {
-            type: Sequelize.STRING,
+         id_mahasiswa: {
+            type: Sequelize.INTEGER,
             references: {
                model: "mahasiswa", // This should match the table name of 'Kelas' model
-               key: "npm",
+               key: "id",
             },
             onUpdate: "CASCADE",
             onDelete: "CASCADE", // Define your desired deletion behavior

@@ -19,14 +19,14 @@ const getAllPeminat = async (req, res) => {
 const createNewPeminat = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.npm || !body.id_mk) {
+      if (!body.id_mahasiswa || !body.id_mk) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
          });
       }
       const data = await Peminat.create({
-         npm: body.npm,
+         id_mahasiswa: body.id_mahasiswa,
          id_mk: body.id_mk,
       });
       return res.status(201).json({
@@ -48,7 +48,7 @@ const updatePeminat = async (req, res) => {
       console.log(body);
       await Peminat.update(
          {
-            npm: body.npm,
+            id_mahasiswa: body.id_mahasiswa,
             id_mk: body.id_mk,
          },
          {
