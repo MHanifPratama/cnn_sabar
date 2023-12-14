@@ -18,8 +18,9 @@ const getAllRuangan = async (req, res) => {
 
 const createNewRuangan = async (req, res) => {
    const { body } = req;
+   console.log(body);
    try {
-      if (!body.id_ruangan || !body.nama_ruangan) {
+      if (!body.nama_ruangan) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
@@ -137,19 +138,18 @@ const detailRuangan = async (req, res) => {
 
 const countRuangan = async (req, res) => {
    try {
-       const data = await Ruangan.count();
-       return res.json({
-           message: "Success",
-           data: data
-       })
+      const data = await Ruangan.count();
+      return res.json({
+         message: "Success",
+         data: data,
+      });
+   } catch (error) {
+      return res.json({
+         message: "Server Error",
+         error: error,
+      });
    }
-   catch (error) {
-       return res.json({
-           message: "Server Error",
-           error: error
-       })
-   }
-}
+};
 
 module.exports = {
    getAllRuangan,
@@ -157,5 +157,5 @@ module.exports = {
    updateRuangan,
    deleteRuangan,
    detailRuangan,
-   countRuangan
+   countRuangan,
 };
