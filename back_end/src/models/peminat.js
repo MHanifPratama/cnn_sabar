@@ -5,6 +5,9 @@ module.exports = (sequelize, DataTypes) => {
       static associate(models) {
          Peminat.belongsTo(models.Mahasiswa, { foreignKey: "id_mahasiswa" });
          Peminat.belongsTo(models.MataKuliah, { foreignKey: "id_mk" });
+         Peminat.hasMany(models.Absensi, {
+            foreignKey: "id_peminat",
+         });
       }
    }
    Peminat.init(

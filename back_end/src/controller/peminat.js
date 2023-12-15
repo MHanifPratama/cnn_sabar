@@ -132,10 +132,27 @@ const detailPeminat = async (req, res) => {
    }
 };
 
+const countPeminat = async (req, res) => {
+   try {
+       const data = await Peminat.count();
+       return res.json({
+           message: "Success",
+           data: data
+       })
+   }
+   catch (error) {
+       return res.json({
+           message: "Server Error",
+           error: error
+       })
+   }
+}
+
 module.exports = {
    getAllPeminat,
    createNewPeminat,
    updatePeminat,
    deletePeminat,
    detailPeminat,
+   countPeminat
 };

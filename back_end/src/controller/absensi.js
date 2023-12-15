@@ -1,8 +1,8 @@
-const { MataKuliah } = require("../models");
+const { Absensi } = require("../models");
 
-const getAllMataKuliah = async (req, res) => {
+const getAllAbsensi = async (req, res) => {
    try {
-      const data = await MataKuliah.findAll();
+      const data = await Absensi.findAll();
       return res.json({
          message: "Success",
          data: data,
@@ -16,22 +16,20 @@ const getAllMataKuliah = async (req, res) => {
    }
 };
 
-const createNewMataKuliah = async (req, res) => {
+const createNewAbsensi = async (req, res) => {
    const { body } = req;
    try {
-      if (!body.title || !body.sks) {
+      if (!body.id_peminat || !body.id_pengampu || !body.id_mk || !body.kehadiran) {
          return res.status(400).json({
             message: "Bad Request",
             data: [],
          });
       }
-      const data = await MataKuliah.create({
-         title: body.title,
-         sks: body.sks,
-         id_kelas: body.id_kelas,
-         id_periode: body.id_periode,
-         id_ruangan: body.id_ruangan,
-         jadwal: body.jadwal,
+      const data = await Absensi.create({
+         id_peminat: body.id_peminat,
+         id_pengampu: body.id_pengampu,
+         id_mk: body.id_mk,
+         kehadiran: body.kehadiran,
       });
       return res.status(200).json({
          message: "Success",
@@ -45,18 +43,16 @@ const createNewMataKuliah = async (req, res) => {
    }
 };
 
-const updateMataKuliah = async (req, res) => {
+const updateAbsensi = async (req, res) => {
    try {
       const { id } = req.params;
       const { body } = req;
-      await MataKuliah.update(
+      await Absensi.update(
          {
-            title: body.title,
-            sks: body.sks,
-            id_kelas: body.id_kelas,
-            id_periode: body.id_periode,
-            id_ruangan: body.id_ruangan,
-            jadwal: body.jadwal,
+            id_peminat: body.id_peminat,
+            id_pengampu: body.id_pengampu,
+            id_mk: body.id_mk,
+            kehadiran: body.kehadiran,
          },
          {
             where: {
@@ -84,10 +80,10 @@ const updateMataKuliah = async (req, res) => {
    }
 };
 
-const deleteMataKuliah = async (req, res) => {
+const deleteAbsensi = async (req, res) => {
    try {
       const { id } = req.params;
-      await MataKuliah.destroy({
+      await Absensi.destroy({
          where: {
             id: id,
          },
@@ -112,9 +108,9 @@ const deleteMataKuliah = async (req, res) => {
    }
 };
 
-const detailMataKuliah = async (req, res) => {
+const detailAbsensi = async (req, res) => {
    try {
-      await MataKuliah.findOne({
+      await Absensi.findOne({
          where: {
             id: req.params.id,
          },
@@ -145,27 +141,26 @@ const detailMataKuliah = async (req, res) => {
    }
 };
 
-const countMataKuliah = async (req, res) => {
+const countAbsensi = async (req, res) => {
    try {
-       const data = await MataKuliah.count();
-       return res.status(200).json({
-           message: "Success",
-           data: data
-       })
+      const data = await Absensi.count();
+      return res.status(200).json({
+         message: "Success",
+         data: data,
+      });
+   } catch (error) {
+      return res.json({
+         message: "Server Error",
+         error: error,
+      });
    }
-   catch (error) {
-       return res.json({
-           message: "Server Error",
-           error: error
-       })
-   }
-}
+};
 
 module.exports = {
-   getAllMataKuliah,
-   createNewMataKuliah,
-   updateMataKuliah,
-   deleteMataKuliah,
-   detailMataKuliah,
-   countMataKuliah
+   getAllAbsensi,
+   createNewAbsensi,
+   updateAbsensi,
+   deleteAbsensi,
+   detailAbsensi,
+   countAbsensi,
 };
