@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ConfirmLoginModal from "../components/ConfirmLoginModal";
 import ErrorLoginModal from "../components/ErrorLoginModal";
 import { MdCoPresent } from "react-icons/md";
+import { Flowbite } from "flowbite-react";
 
 const Login = () => {
 
@@ -13,12 +14,13 @@ const Login = () => {
     const [openModal, setOpenModal] = useState(false);
     const navigate = useNavigate();
 
-    const loginHandler = async () => {
+    const loginHandler = async (event) => {
+      event.preventDefault();
       console.warn(email, password);
       const item = { email, password };
     
       try {
-        const response = await fetch("http://127.0.0.1:3001/api/v1/user/login", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/login`, {
           method: 'POST',
           headers: {
             "Content-Type": "application/json",
@@ -50,6 +52,7 @@ const Login = () => {
     
 
     return (
+      <Flowbite>
       <>
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -72,7 +75,7 @@ const Login = () => {
                                 <input onChange={ (e) => setPassword(e.target.value) } type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                             </div>
                             <ConfirmLoginModal showModal={showModal} setShowModal={setShowModal} />
-                            <button onClick={ loginHandler } type="submit" className="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">Sign in</button>
+                            <button onClick={ loginHandler } onSubmit={loginHandler} type="submit" className="w-full text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">Sign in</button>
                             <p className="text-sm text-left font-light text-gray-500 dark:text-gray-400">
                                 Don't have an account yet?
                                 <a onClick={ () => navigate("/register") } className="font-medium text-cyan-600 hover:underline dark:text-cyan-500 hover:cursor-pointer"> Sign up</a>
@@ -84,6 +87,7 @@ const Login = () => {
         </section>
         <ErrorLoginModal openModal={openModal} setOpenModal={setOpenModal} />
       </>
+      </Flowbite>
     );
 };
 

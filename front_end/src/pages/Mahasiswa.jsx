@@ -41,7 +41,7 @@ const Mahasiswa = () => {
         const fetchData = async () => {
             try {
                 const token = sessionStorage.getItem('token');
-                const response = await fetch("http://127.0.0.1:3001/api/v1/mahasiswa/", {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mahasiswa/`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const Mahasiswa = () => {
         else {
             try {
                 const token = sessionStorage.getItem('token');
-                const response = await fetch("http://127.0.0.1:3001/api/v1/mahasiswa/", {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mahasiswa/`, {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const Mahasiswa = () => {
                     body: JSON.stringify({
                         "npm": npm,
                         "nama_mahasiswa": nama,
-                        "alamat": alamat
+                        "email": alamat
                     })
                 });
     
@@ -111,7 +111,7 @@ const Mahasiswa = () => {
         } else {
             try {
                 const token = sessionStorage.getItem('token');
-                const response = await fetch(`http://127.0.0.1:3001/api/v1/mahasiswa/${selectedId}`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mahasiswa/${selectedId}`, {
                     method: 'PATCH',
                     headers: {
                         "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const Mahasiswa = () => {
                     body: JSON.stringify({
                         "npm": npm,
                         "nama_mahasiswa": nama,
-                        "alamat": alamat
+                        "email": alamat
                     })
                 });
 
@@ -143,7 +143,7 @@ const Mahasiswa = () => {
 
     return (
 
-        <div className="flex">
+        <div className="flex dark:bg-gray-900">
 
             <CustomSidebar />
 
@@ -198,12 +198,12 @@ const Mahasiswa = () => {
                         </div>
                         <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="alamat" value="Alamat" />
+                            <Label htmlFor="email" value="Email" />
                         </div>
 
                         <TextInput
-                            id="alamat"
-                            placeholder="Alamat"
+                            id="email"
+                            placeholder="Email"
                             onChange={(event) => setAlamat(event.target.value)}
                             required
                         />
@@ -221,7 +221,7 @@ const Mahasiswa = () => {
                     <Modal.Header />
                     <Modal.Body>
                         <div className="space-y-6">
-                            <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Edit Dosen</h3>
+                            <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Edit Mahasiswa</h3>
                             <div>
                                 <div className="mb-2 block">
                                     <Label htmlFor="npm" value="NPM" />
@@ -259,12 +259,12 @@ const Mahasiswa = () => {
                             </div>
                             <div>
                                 <div className="mb-2 block">
-                                    <Label htmlFor="alamat" value="Alamat" />
+                                    <Label htmlFor="email" value="Email" />
                                 </div>
                                 <TextInput
-                                    id="alamat"
-                                    type="alamat"
-                                    placeholder="Alamat"
+                                    id="email"
+                                    type="email"
+                                    placeholder="Email"
                                     onChange={(event) => setAlamat(event.target.value)}
                                     required
                                 />
@@ -287,13 +287,13 @@ const Mahasiswa = () => {
                     </div>
                 </div>
 
-                <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "80%", width: "95%"}}>
-                    <Table striped style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "78%", width: "95%"}}>
+                    <Table hoverable style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <Table.Head className="sticky top-0 z-10 bg-cyan-600">
-                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '30%' }}>NPM</Table.HeadCell>
-                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '30%' }}>Nama</Table.HeadCell>
-                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '30%' }}>Alamat</Table.HeadCell>
-                            <Table.HeadCell className="bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>NPM</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>Nama</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>Email</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
                                 Action
                             </Table.HeadCell>
                         </Table.Head>
@@ -308,7 +308,7 @@ const Mahasiswa = () => {
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '30%' }}>
                                         {data.nama_mahasiswa}
                                     </Table.Cell>
-                                    <Table.Cell style={{ width: '30%' }}>{data.alamat}</Table.Cell>
+                                    <Table.Cell style={{ width: '30%' }}>{data.email}</Table.Cell>
                                     <Table.Cell style={{ width: '10%' }}> 
                                         <a onClick={() => {
                                             setShowEditModal(true)

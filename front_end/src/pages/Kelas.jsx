@@ -103,7 +103,7 @@ const Kelas = () => {
         } else {
             try {
                 const token = sessionStorage.getItem('token');
-                const response = await fetch(`http://127.0.0.1:3001/api/v1/kelas/${selectedId}`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/kelas/${selectedId}`, {
                     method: 'PATCH',
                     headers: {
                         "Content-Type": "application/json",
@@ -133,7 +133,7 @@ const Kelas = () => {
 
     return (
 
-        <div className="flex">
+        <div className="flex dark:bg-gray-900">
 
             <CustomSidebar />
 
@@ -201,11 +201,11 @@ const Kelas = () => {
                     </div>
                 </div>
 
-                <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "80%", width: "95%"}}>
-                    <Table striped style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "78%", width: "95%"}}>
+                    <Table hoverable style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <Table.Head className="sticky top-0 z-10 bg-cyan-600">
-                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '80%' }}>Kelas</Table.HeadCell>
-                            <Table.HeadCell className="bg-cyan-600 text-white flex item-center" style={{ width: '20%' }}>
+                            <Table.HeadCell className="bg-cyan-600 dark:bg-cyan-600 text-white" style={{ width: '90%' }}>Kelas</Table.HeadCell>
+                            <Table.HeadCell className="bg-cyan-600 dark:bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
                                 Action
                             </Table.HeadCell>
                         </Table.Head>
@@ -214,10 +214,10 @@ const Kelas = () => {
                             return search.toLowerCase() === '' ? data : data.nama_kelas.toLowerCase().includes(search);
                         }).map((data) => (
                                 <Table.Row key={data.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '80%' }}>
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '90%' }}>
                                         {data.nama_kelas}
                                     </Table.Cell>
-                                    <Table.Cell style={{ width: '20%' }}> 
+                                    <Table.Cell style={{ width: '10%' }}> 
                                         <a onClick={() => {
                                             setShowEditModal(true)
                                             setSelectedId(data.id);

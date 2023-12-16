@@ -16,8 +16,8 @@ import { Flowbite } from 'flowbite-react';
 const App = () => {
 
   return (
+    <Flowbite>
     <div className="App">
-      <Flowbite>
         <Routes>
           
           <Route path="/login" element={<Login />} />
@@ -35,8 +35,8 @@ const App = () => {
           </Route>
 
         </Routes>
-      </Flowbite>
     </div>
+    </Flowbite>
   );
 }
 

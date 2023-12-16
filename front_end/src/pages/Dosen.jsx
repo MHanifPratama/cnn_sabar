@@ -41,7 +41,7 @@ const Dosen = () => {
         const fetchData = async () => {
             try {
                 const token = sessionStorage.getItem('token');
-                const response = await fetch("http://127.0.0.1:3001/api/v1/dosen/", {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dosen/`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const Dosen = () => {
                 const token = sessionStorage.getItem('token');
                 console.warn(email, nip, nama);
                 const item = { nip, email, nama };
-                const response = await fetch("http://127.0.0.1:3001/api/v1/dosen/", {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dosen/`, {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json",
@@ -113,7 +113,7 @@ const Dosen = () => {
             try {
                 const token = sessionStorage.getItem('token');
                 const item = { nip, email, nama };
-                const response = await fetch(`http://127.0.0.1:3001/api/v1/dosen/${selectedId}`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/dosen/${selectedId}`, {
                     method: 'PATCH',
                     headers: {
                         "Content-Type": "application/json",
@@ -141,7 +141,7 @@ const Dosen = () => {
         }
 
     return (
-        <div className="flex">
+        <div className="flex dark:bg-gray-900">
 
             <CustomSidebar />
 
@@ -288,18 +288,17 @@ const Dosen = () => {
                     </div>
                 </div>
 
-                <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "80%", width: "95%"}}>
-                    <Table className="" striped style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "78%", width: "95%"}}>
+                    <Table hoverable style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <Table.Head className="sticky top-0 z-10 bg-cyan-600">
-                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '30%' }}>NIP</Table.HeadCell>
-                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '30%' }}>Nama</Table.HeadCell>
-                            <Table.HeadCell className="bg-cyan-600 text-white" style={{ width: '30%' }}>Email</Table.HeadCell>
-                            <Table.HeadCell className="bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
-                                Action
-                                
+                            <Table.HeadCell className="bg-cyan-600 dark:bg-cyan-600 text-white" style={{ width: '30%' }}>NIP</Table.HeadCell>
+                            <Table.HeadCell className="bg-cyan-600 dark:bg-cyan-600 text-white" style={{ width: '30%' }}>Nama</Table.HeadCell>
+                            <Table.HeadCell className="bg-cyan-600 dark:bg-cyan-600 text-white" style={{ width: '30%' }}>Email</Table.HeadCell>
+                            <Table.HeadCell className="bg-cyan-600 dark:bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
+                                Action 
                             </Table.HeadCell>
                         </Table.Head>
-                        <Table.Body className="divide-y">
+                        <Table.Body className="bg-cyan-600 dark:bg-cyan-600 divide-y">
                             {userData.filter((data) => {
                                 return search.toLowerCase() === '' ? data : data.nama_dosen.toLowerCase().includes(search)
                             }).map((data) => (

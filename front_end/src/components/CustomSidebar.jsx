@@ -8,7 +8,9 @@ import { BsPersonFill } from "react-icons/bs";
 import { MdMeetingRoom } from "react-icons/md";
 import { BsPersonLinesFill } from "react-icons/bs";
 import { MdDateRange } from "react-icons/md";
+import { MdMenuBook } from "react-icons/md";
 import ConfirmLogoutModal from './ConfirmLogoutModal';
+import { DarkThemeToggle } from 'flowbite-react';
 
 const CustomSidebar = () => {
     const navigate = useNavigate();
@@ -22,9 +24,10 @@ const CustomSidebar = () => {
 
     return (
         <div className='min-h-screen'>  
-            <Sidebar aria-label="Default sidebar example" className="border-r border-gray-300">
+            <Sidebar aria-label="Default sidebar example" className="border-r border-gray-300 dark:border-gray-900">
                 <div className='flex item-center justify-center'>
-                    <h1 className='font-bold m-3 text-xl'>
+                <DarkThemeToggle className=''/>
+                    <h1 className="text-xl m-5 ml-0 font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         CNN Sabar
                     </h1>
                 </div>
@@ -69,6 +72,16 @@ const CustomSidebar = () => {
                             }}
                         >
                             Mahasiswa
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={MdMenuBook}
+                            className={`hover:cursor-pointer ${location.pathname === '/matakuliah' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/matakuliah');
+                                handleItemClick('Mata Kuliah');
+                            }}
+                        >
+                            Mata Kuliah
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={SiGoogleclassroom}
