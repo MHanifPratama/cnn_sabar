@@ -1,6 +1,6 @@
 const NotFound = () => {
     return (
-        <div className="flex flex-col justify-center items-center h-screen">
+        <div className="flex flex-col justify-center items-center h-screen dark:bg-gray-900">
             <h1 className="mb-4 text-6xl font-semibold text-cyan-600">404</h1>
             <p className="mb-4 text-lg text-gray-600">Oops! Looks like you're lost.</p>
             <div className="animate-bounce">

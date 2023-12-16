@@ -14,7 +14,7 @@ const Register = () => {
         console.warn(username, email, password);
         const item = { username, email, password };
         try {
-            const response = await fetch("http://127.0.0.1:3001/api/v1/user/register", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/register`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const Register = () => {
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <a className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                     <MdCoPresent className="m-1"/>
                     CNN SABAR    
                 </a>

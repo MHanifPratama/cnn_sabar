@@ -5,7 +5,7 @@ const DeleteMahasiswaModal = ({ showDeleteModal, setShowDeleteModal, id, setUser
     const deleteDataEntry = async () => {
         try {
           const token = sessionStorage.getItem('token');
-          const response = await fetch(`http://127.0.0.1:3001/api/v1/mahasiswa/${id}`, {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mahasiswa/${id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
