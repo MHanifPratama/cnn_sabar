@@ -65,16 +65,13 @@ const Kelas = () => {
       } else {
          try {
             const token = sessionStorage.getItem("token");
-            const response = await fetch("http://127.0.0.1:3001/api/v1/kelas/", {
-               method: "POST",
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah/`, {
+               method: "GET",
                headers: {
                   "Content-Type": "application/json",
                   Accept: "application/json",
                   Authorization: token,
                },
-               body: JSON.stringify({
-                  nama_kelas: nama,
-               }),
             });
 
             if (response.ok) {
