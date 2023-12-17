@@ -1,6 +1,6 @@
 "use client";
 import CustomSidebar from "../components/CustomSidebar";
-import DeleteKelasModal from "../components/DeleteKelasModal";
+import DeleteMatakuliahModal from "../components/DeleteMatakuliahModal";
 import { Label, TextInput, Button, Modal, Table } from "flowbite-react";
 import { useState, useEffect } from "react";
 import FieldRequirement from "../components/FieldRequirement";
@@ -8,11 +8,13 @@ import SuccessModal from "../components/SuccessModal";
 import { GrSearch } from "react-icons/gr";
 import TokenExpired from "../utils/TokenExpired";
 
-const Kelas = () => {
+const Matakuliah = () => {
    const [userData, setUserData] = useState([]);
    const [showAddModal, setShowAddModal] = useState(false);
    const [showEditModal, setShowEditModal] = useState(false);
-   const [nama, setNama] = useState("");
+   const [title, setTitle] = useState("");
+   const [sks, setSKS] = useState("");
+   const [kelas, setKelas] = useState("");
    const [search, setSearch] = useState("");
    const [showSuccessModal, setShowSuccessModal] = useState(false);
    const [showFieldReqModal, setShowFieldReqModal] = useState(false);
@@ -22,19 +24,23 @@ const Kelas = () => {
 
    const onCloseAddModal = () => {
       setShowAddModal(false);
-      setNama("");
+      setTitle("");
+      setSKS("");
+      setKelas("");
    };
 
    const onCloseEditModal = () => {
       setShowEditModal(false);
-      setNama("");
+      setTitle("");
+      setSKS("");
+      setKelas("");
    };
 
    useEffect(() => {
       const fetchData = async () => {
          try {
             const token = sessionStorage.getItem("token");
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/kelas/`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah/`, {
                method: "GET",
                headers: {
                   "Content-Type": "application/json",
@@ -42,6 +48,7 @@ const Kelas = () => {
                   Authorization: token,
                },
             });
+
             if (response.ok) {
                const result = await response.json();
                setUserData(result.data);
@@ -59,19 +66,24 @@ const Kelas = () => {
       fetchData();
    }, []);
 
-   const kelasAddHandler = async () => {
-      if (!nama) {
+   const matakuliahAddHandler = async () => {
+      if (!title || !sks || !kelas) {
          setShowFieldReqModal(true);
       } else {
          try {
             const token = sessionStorage.getItem("token");
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah/`, {
-               method: "GET",
+               method: "POST",
                headers: {
                   "Content-Type": "application/json",
                   Accept: "application/json",
                   Authorization: token,
                },
+               body: JSON.stringify({
+                  title: title,
+                  sks: sks,
+                  kelas: kelas,
+               }),
             });
 
             if (response.ok) {
@@ -90,13 +102,13 @@ const Kelas = () => {
       }
    };
 
-   const kelasEditHandler = async () => {
-      if (!nama) {
+   const matakuliahEditHandler = async () => {
+      if (!title || !sks || !kelas) {
          setShowFieldReqModal(true);
       } else {
          try {
             const token = sessionStorage.getItem("token");
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/kelas/${selectedId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah/${selectedId}`, {
                method: "PATCH",
                headers: {
                   "Content-Type": "application/json",
@@ -104,7 +116,9 @@ const Kelas = () => {
                   Authorization: token,
                },
                body: JSON.stringify({
-                  nama_kelas: nama,
+                  title: title,
+                  sks: sks,
+                  kelas: kelas,
                }),
             });
 
@@ -133,30 +147,63 @@ const Kelas = () => {
                <Modal.Header />
                <Modal.Body>
                   <div className="space-y-6">
-                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Add Kelas</h3>
-                     <div className="mb-2 block">
-                        <Label htmlFor="nama" value="Kelas" />
-                     </div>
+                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Add Matakuliah</h3>
+                     <div>
+                        <div className="mb-2 block">
+                           <Label htmlFor="title" value="TITLE" />
+                        </div>
 
-                     <TextInput
-                        id="nama"
-                        type="text"
-                        placeholder="Kelas"
-                        onChange={(event) => {
-                           const enteredValue = event.target.value;
-                           setNama(enteredValue);
-                        }}
-                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                        required
-                     />
+                        <TextInput
+                           id="title"
+                           placeholder="TITLE"
+                           type="text"
+                           onChange={(event) => {
+                              const re = /^[0-9\b]+$/; // Regex pattern to allow only numbers
+                              if (event.target.value === "" || re.test(event.target.value)) {
+                                 setTitle(event.target.value);
+                              }
+                           }}
+                           onKeyDown={(event) => {
+                              const re = /^[0-9\b]+$/; // Regex pattern to allow only numbers
+                              if (event.key !== "Backspace" && !re.test(event.key)) {
+                                 event.preventDefault();
+                              }
+                           }}
+                           required
+                        />
+                     </div>
+                     <div>
+                        <div className="mb-2 block">
+                           <Label htmlFor="sks" value="Nama" />
+                        </div>
+
+                        <TextInput
+                           id="sks"
+                           type="text"
+                           placeholder="Nama"
+                           onChange={(event) => {
+                              const enteredValue = event.target.value;
+                              setSKS(enteredValue);
+                           }}
+                           pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                           required
+                        />
+                     </div>
+                     <div>
+                        <div className="mb-2 block">
+                           <Label htmlFor="kelas" value="kelas" />
+                        </div>
+
+                        <TextInput id="kelas" placeholder="kelas" onChange={(event) => setKelas(event.target.value)} required />
+                     </div>
                      <Button
-                        disabled={!nama}
+                        disabled={!title || !sks || !kelas}
                         onClick={() => {
                            setShowAddModal(false);
-                           kelasAddHandler();
+                           matakuliahAddHandler();
                         }}
                      >
-                        Add Kelas
+                        Add Matakuliah
                      </Button>
                   </div>
                </Modal.Body>
@@ -166,21 +213,50 @@ const Kelas = () => {
                <Modal.Header />
                <Modal.Body>
                   <div className="space-y-6">
-                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Edit Kelas</h3>
-                     <div className="mb-2 block">
-                        <Label htmlFor="nama" value="Kelas" />
+                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Edit Matakuliah</h3>
+                     <div>
+                        <div className="mb-2 block">
+                           <Label htmlFor="title" value="TITLE" />
+                        </div>
+                        <TextInput
+                           id="title"
+                           placeholder="TITLE"
+                           type="text"
+                           onChange={(event) => {
+                              const re = /^[0-9]+$/; // Regex pattern to allow only numbers
+                              if (event.target.value === "" || re.test(event.target.value)) {
+                                 setTitle(event.target.value);
+                              }
+                           }}
+                           onKeyDown={(event) => {
+                              const re = /^[0-9]+$/; // Regex pattern to allow only numbers
+                              if (event.key !== "Backspace" && !re.test(event.key)) {
+                                 event.preventDefault();
+                              }
+                           }}
+                           required
+                        />
                      </div>
-
-                     <TextInput id="nama" placeholder="Kelas" onChange={(event) => setNama(event.target.value)} required />
-
+                     <div>
+                        <div className="mb-2 block">
+                           <Label htmlFor="sks" value="Nama" />
+                        </div>
+                        <TextInput id="sks" placeholder="Nama" onChange={(event) => setSKS(event.target.value)} required />
+                     </div>
+                     <div>
+                        <div className="mb-2 block">
+                           <Label htmlFor="kelas" value="kelas" />
+                        </div>
+                        <TextInput id="kelas" type="kelas" placeholder="kelas" onChange={(event) => setKelas(event.target.value)} required />
+                     </div>
                      <Button
-                        disabled={!nama}
+                        disabled={!title || !sks || !kelas}
                         onClick={() => {
                            setShowEditModal(false);
-                           kelasEditHandler();
+                           matakuliahEditHandler();
                         }}
                      >
-                        Edit Kelas
+                        Edit Matakuliah
                      </Button>
                   </div>
                </Modal.Body>
@@ -188,7 +264,7 @@ const Kelas = () => {
 
             <div className="flex max-w-md m-7 justify-between items-center relative">
                <div className="mb-2 block flex-grow">
-                  <Label className="text-xl" htmlFor="base" value="Search Kelas" />
+                  <Label className="text-xl" htmlFor="base" value="Search Matakuliah" />
                   <TextInput placeholder="search" rightIcon={GrSearch} className="mt-2" id="base" type="text" sizing="md" onChange={(e) => setSearch(e.target.value)} />
                </div>
                <div className="absolute right-0" style={{ left: "250%" }}>
@@ -201,10 +277,16 @@ const Kelas = () => {
             <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "78%", width: "95%" }}>
                <Table hoverable style={{ width: "100%", borderCollapse: "collapse" }}>
                   <Table.Head className="sticky top-0 z-10 bg-cyan-600">
-                     <Table.HeadCell className="bg-cyan-600 dark:bg-cyan-600 text-white" style={{ width: "90%" }}>
-                        Kelas
+                     <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
+                        TITLE
                      </Table.HeadCell>
-                     <Table.HeadCell className="bg-cyan-600 dark:bg-cyan-600 text-white flex item-center" style={{ width: "10%" }}>
+                     <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
+                        SKS
+                     </Table.HeadCell>
+                     <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
+                        kelas
+                     </Table.HeadCell>
+                     <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: "10%" }}>
                         Action
                      </Table.HeadCell>
                   </Table.Head>
@@ -212,13 +294,17 @@ const Kelas = () => {
                      {userData &&
                         userData
                            .filter((data) => {
-                              return search.toLowerCase() === "" ? data : data.nama_kelas.toLowerCase().includes(search);
+                              return search.toLowerCase() === "" ? data : data.sks.toLowerCase().includes(search);
                            })
                            .map((data) => (
                               <Table.Row key={data.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "90%" }}>
-                                    {data.nama_kelas}
+                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "30%" }}>
+                                    {data.title}
                                  </Table.Cell>
+                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "30%" }}>
+                                    {data.sks}
+                                 </Table.Cell>
+                                 <Table.Cell style={{ width: "30%" }}>{data.kelas}</Table.Cell>
                                  <Table.Cell style={{ width: "10%" }}>
                                     <a
                                        onClick={() => {
@@ -249,11 +335,11 @@ const Kelas = () => {
          <>
             <SuccessModal showSuccessModal={showSuccessModal} setShowSuccessModal={setShowSuccessModal} />
             <FieldRequirement showFieldReqModal={showFieldReqModal} setShowFieldReqModal={setShowFieldReqModal} />
-            <DeleteKelasModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={selectedId} setUserData={setUserData} userData={userData} />
+            <DeleteMatakuliahModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={selectedId} setUserData={setUserData} userData={userData} />
             <TokenExpired showTokenModal={showTokenModal} setShowTokenModal={setShowTokenModal} />
          </>
       </div>
    );
 };
 
-export default Kelas;
+export default Matakuliah;
