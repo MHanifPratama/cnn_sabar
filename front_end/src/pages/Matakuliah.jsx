@@ -1,6 +1,6 @@
 "use client";
 import CustomSidebar from "../components/CustomSidebar";
-import DeleteMahasiswaModal from "../components/DeleteMahasiswaModal";
+import DeleteMatakuliahModal from "../components/DeleteMatakuliahModal";
 import { Label, TextInput, Button, Modal, Table } from "flowbite-react";
 import { useState, useEffect } from "react";
 import FieldRequirement from "../components/FieldRequirement";
@@ -8,13 +8,13 @@ import SuccessModal from "../components/SuccessModal";
 import { GrSearch } from "react-icons/gr";
 import TokenExpired from "../utils/TokenExpired";
 
-const Mahasiswa = () => {
+const Matakuliah = () => {
    const [userData, setUserData] = useState([]);
    const [showAddModal, setShowAddModal] = useState(false);
    const [showEditModal, setShowEditModal] = useState(false);
-   const [npm, setNpm] = useState("");
-   const [nama, setNama] = useState("");
-   const [email, setEmail] = useState("");
+   const [title, setTitle] = useState("");
+   const [sks, setSKS] = useState("");
+   const [kelas, setKelas] = useState("");
    const [search, setSearch] = useState("");
    const [showSuccessModal, setShowSuccessModal] = useState(false);
    const [showFieldReqModal, setShowFieldReqModal] = useState(false);
@@ -24,23 +24,23 @@ const Mahasiswa = () => {
 
    const onCloseAddModal = () => {
       setShowAddModal(false);
-      setNpm("");
-      setNama("");
-      setEmail("");
+      setTitle("");
+      setSKS("");
+      setKelas("");
    };
 
    const onCloseEditModal = () => {
       setShowEditModal(false);
-      setNpm("");
-      setNama("");
-      setEmail("");
+      setTitle("");
+      setSKS("");
+      setKelas("");
    };
 
    useEffect(() => {
       const fetchData = async () => {
          try {
             const token = sessionStorage.getItem("token");
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mahasiswa/`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah/`, {
                method: "GET",
                headers: {
                   "Content-Type": "application/json",
@@ -66,13 +66,13 @@ const Mahasiswa = () => {
       fetchData();
    }, []);
 
-   const mahasiswaAddHandler = async () => {
-      if (!npm || !nama || !email) {
+   const matakuliahAddHandler = async () => {
+      if (!title || !sks || !kelas) {
          setShowFieldReqModal(true);
       } else {
          try {
             const token = sessionStorage.getItem("token");
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mahasiswa/`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah/`, {
                method: "POST",
                headers: {
                   "Content-Type": "application/json",
@@ -80,9 +80,9 @@ const Mahasiswa = () => {
                   Authorization: token,
                },
                body: JSON.stringify({
-                  npm: npm,
-                  nama_mahasiswa: nama,
-                  email: email,
+                  title: title,
+                  sks: sks,
+                  kelas: kelas,
                }),
             });
 
@@ -102,13 +102,13 @@ const Mahasiswa = () => {
       }
    };
 
-   const mahasiswaEditHandler = async () => {
-      if (!npm || !nama || !email) {
+   const matakuliahEditHandler = async () => {
+      if (!title || !sks || !kelas) {
          setShowFieldReqModal(true);
       } else {
          try {
             const token = sessionStorage.getItem("token");
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/mahasiswa/${selectedId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah/${selectedId}`, {
                method: "PATCH",
                headers: {
                   "Content-Type": "application/json",
@@ -116,9 +116,9 @@ const Mahasiswa = () => {
                   Authorization: token,
                },
                body: JSON.stringify({
-                  npm: npm,
-                  nama_mahasiswa: nama,
-                  email: email,
+                  title: title,
+                  sks: sks,
+                  kelas: kelas,
                }),
             });
 
@@ -147,20 +147,20 @@ const Mahasiswa = () => {
                <Modal.Header />
                <Modal.Body>
                   <div className="space-y-6">
-                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Add Mahasiswa</h3>
+                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Add Matakuliah</h3>
                      <div>
                         <div className="mb-2 block">
-                           <Label htmlFor="npm" value="NPM" />
+                           <Label htmlFor="title" value="TITLE" />
                         </div>
 
                         <TextInput
-                           id="npm"
-                           placeholder="NPM"
+                           id="title"
+                           placeholder="TITLE"
                            type="text"
                            onChange={(event) => {
                               const re = /^[0-9\b]+$/; // Regex pattern to allow only numbers
                               if (event.target.value === "" || re.test(event.target.value)) {
-                                 setNpm(event.target.value);
+                                 setTitle(event.target.value);
                               }
                            }}
                            onKeyDown={(event) => {
@@ -174,16 +174,16 @@ const Mahasiswa = () => {
                      </div>
                      <div>
                         <div className="mb-2 block">
-                           <Label htmlFor="nama" value="Nama" />
+                           <Label htmlFor="sks" value="Nama" />
                         </div>
 
                         <TextInput
-                           id="nama"
+                           id="sks"
                            type="text"
                            placeholder="Nama"
                            onChange={(event) => {
                               const enteredValue = event.target.value;
-                              setNama(enteredValue);
+                              setSKS(enteredValue);
                            }}
                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                            required
@@ -191,19 +191,19 @@ const Mahasiswa = () => {
                      </div>
                      <div>
                         <div className="mb-2 block">
-                           <Label htmlFor="email" value="Email" />
+                           <Label htmlFor="kelas" value="kelas" />
                         </div>
 
-                        <TextInput id="email" placeholder="Email" onChange={(event) => setEmail(event.target.value)} required />
+                        <TextInput id="kelas" placeholder="kelas" onChange={(event) => setKelas(event.target.value)} required />
                      </div>
                      <Button
-                        disabled={!npm || !nama || !email}
+                        disabled={!title || !sks || !kelas}
                         onClick={() => {
                            setShowAddModal(false);
-                           mahasiswaAddHandler();
+                           matakuliahAddHandler();
                         }}
                      >
-                        Add Mahasiswa
+                        Add Matakuliah
                      </Button>
                   </div>
                </Modal.Body>
@@ -213,19 +213,19 @@ const Mahasiswa = () => {
                <Modal.Header />
                <Modal.Body>
                   <div className="space-y-6">
-                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Edit Mahasiswa</h3>
+                     <h3 className="text-xl text-center font-medium text-gray-900 dark:text-white">Edit Matakuliah</h3>
                      <div>
                         <div className="mb-2 block">
-                           <Label htmlFor="npm" value="NPM" />
+                           <Label htmlFor="title" value="TITLE" />
                         </div>
                         <TextInput
-                           id="npm"
-                           placeholder="NPM"
+                           id="title"
+                           placeholder="TITLE"
                            type="text"
                            onChange={(event) => {
                               const re = /^[0-9]+$/; // Regex pattern to allow only numbers
                               if (event.target.value === "" || re.test(event.target.value)) {
-                                 setNpm(event.target.value);
+                                 setTitle(event.target.value);
                               }
                            }}
                            onKeyDown={(event) => {
@@ -239,24 +239,24 @@ const Mahasiswa = () => {
                      </div>
                      <div>
                         <div className="mb-2 block">
-                           <Label htmlFor="nama" value="Nama" />
+                           <Label htmlFor="sks" value="Nama" />
                         </div>
-                        <TextInput id="nama" placeholder="Nama" onChange={(event) => setNama(event.target.value)} required />
+                        <TextInput id="sks" placeholder="Nama" onChange={(event) => setSKS(event.target.value)} required />
                      </div>
                      <div>
                         <div className="mb-2 block">
-                           <Label htmlFor="email" value="Email" />
+                           <Label htmlFor="kelas" value="kelas" />
                         </div>
-                        <TextInput id="email" type="email" placeholder="Email" onChange={(event) => setEmail(event.target.value)} required />
+                        <TextInput id="kelas" type="kelas" placeholder="kelas" onChange={(event) => setKelas(event.target.value)} required />
                      </div>
                      <Button
-                        disabled={!npm || !nama || !email}
+                        disabled={!title || !sks || !kelas}
                         onClick={() => {
                            setShowEditModal(false);
-                           mahasiswaEditHandler();
+                           matakuliahEditHandler();
                         }}
                      >
-                        Edit Mahasiswa
+                        Edit Matakuliah
                      </Button>
                   </div>
                </Modal.Body>
@@ -264,7 +264,7 @@ const Mahasiswa = () => {
 
             <div className="flex max-w-md m-7 justify-between items-center relative">
                <div className="mb-2 block flex-grow">
-                  <Label className="text-xl" htmlFor="base" value="Search Mahasiswa" />
+                  <Label className="text-xl" htmlFor="base" value="Search Matakuliah" />
                   <TextInput placeholder="search" rightIcon={GrSearch} className="mt-2" id="base" type="text" sizing="md" onChange={(e) => setSearch(e.target.value)} />
                </div>
                <div className="absolute right-0" style={{ left: "250%" }}>
@@ -278,13 +278,13 @@ const Mahasiswa = () => {
                <Table hoverable style={{ width: "100%", borderCollapse: "collapse" }}>
                   <Table.Head className="sticky top-0 z-10 bg-cyan-600">
                      <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
-                        NPM
+                        TITLE
                      </Table.HeadCell>
                      <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
-                        Nama
+                        SKS
                      </Table.HeadCell>
                      <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
-                        Email
+                        kelas
                      </Table.HeadCell>
                      <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: "10%" }}>
                         Action
@@ -294,17 +294,17 @@ const Mahasiswa = () => {
                      {userData &&
                         userData
                            .filter((data) => {
-                              return search.toLowerCase() === "" ? data : data.nama_mahasiswa.toLowerCase().includes(search);
+                              return search.toLowerCase() === "" ? data : data.sks.toLowerCase().includes(search);
                            })
                            .map((data) => (
                               <Table.Row key={data.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "30%" }}>
-                                    {data.npm}
+                                    {data.title}
                                  </Table.Cell>
                                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "30%" }}>
-                                    {data.nama_mahasiswa}
+                                    {data.sks}
                                  </Table.Cell>
-                                 <Table.Cell style={{ width: "30%" }}>{data.email}</Table.Cell>
+                                 <Table.Cell style={{ width: "30%" }}>{data.kelas}</Table.Cell>
                                  <Table.Cell style={{ width: "10%" }}>
                                     <a
                                        onClick={() => {
@@ -335,11 +335,11 @@ const Mahasiswa = () => {
          <>
             <SuccessModal showSuccessModal={showSuccessModal} setShowSuccessModal={setShowSuccessModal} />
             <FieldRequirement showFieldReqModal={showFieldReqModal} setShowFieldReqModal={setShowFieldReqModal} />
-            <DeleteMahasiswaModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={selectedId} setUserData={setUserData} userData={userData} />
+            <DeleteMatakuliahModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={selectedId} setUserData={setUserData} userData={userData} />
             <TokenExpired showTokenModal={showTokenModal} setShowTokenModal={setShowTokenModal} />
          </>
       </div>
    );
 };
 
-export default Mahasiswa;
+export default Matakuliah;
