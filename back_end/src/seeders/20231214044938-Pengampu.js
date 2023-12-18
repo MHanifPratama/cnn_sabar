@@ -8,13 +8,13 @@ module.exports = {
          [
             {
                id_dosen: 1,
-               id_mk: 8,
+               id_mk: 1,
                createdAt: new Date(),
                updatedAt: new Date(),
             },
             {
                id_dosen: 1,
-               id_mk: 8,
+               id_mk: 1,
                createdAt: new Date(),
                updatedAt: new Date(),
             },
