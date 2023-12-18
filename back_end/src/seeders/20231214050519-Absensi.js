@@ -9,7 +9,7 @@ module.exports = {
             {
                id_peminat: 2,
                id_pengampu: 1,
-               id_mk: 8,
+               id_mk: 1,
                kehadiran: true,
                createdAt: new Date(),
                updatedAt: new Date(),
