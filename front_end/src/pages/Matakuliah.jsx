@@ -67,7 +67,7 @@ const Matakuliah = () => {
    }, []);
 
    const matakuliahAddHandler = async () => {
-      if (!title || !sks || !id_kelas ) {
+      if (!title || !sks || !id_kelas) {
          setShowFieldReqModal(true);
       } else {
          try {
@@ -83,8 +83,6 @@ const Matakuliah = () => {
                   title: title,
                   sks: sks,
                   id_kelas: id_kelas,
-                  
-                  
                }),
             });
 
@@ -155,7 +153,7 @@ const Matakuliah = () => {
                            <Label htmlFor="title" value="TITLE" />
                         </div>
 
-                        <TextInput id="title" placeholder="TITLE" type="text" onChange={(event) => setKelas(event.target.value)} required />
+                        <TextInput id="title" placeholder="TITLE" type="text" onChange={(event) => setTitle(event.target.value)} required />
                      </div>
                      <div>
                         <div className="mb-2 block">
@@ -203,7 +201,7 @@ const Matakuliah = () => {
                         <div className="mb-2 block">
                            <Label htmlFor="title" value="TITLE" />
                         </div>
-                        <TextInput id="title" placeholder="TITLE" type="text"  onChange={(event) => setTitle(event.target.value)} required />
+                        <TextInput id="title" placeholder="TITLE" type="text" onChange={(event) => setTitle(event.target.value)} required />
                      </div>
                      <div>
                         <div className="mb-2 block">
