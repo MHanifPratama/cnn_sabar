@@ -14,7 +14,7 @@ const Matakuliah = () => {
    const [showEditModal, setShowEditModal] = useState(false);
    const [title, setTitle] = useState("");
    const [sks, setSKS] = useState("");
-   const [kelas, setKelas] = useState("");
+   const [id_kelas, setKelas] = useState("");
    const [search, setSearch] = useState("");
    const [showSuccessModal, setShowSuccessModal] = useState(false);
    const [showFieldReqModal, setShowFieldReqModal] = useState(false);
@@ -67,7 +67,7 @@ const Matakuliah = () => {
    }, []);
 
    const matakuliahAddHandler = async () => {
-      if (!title || !sks || !kelas) {
+      if (!title || !sks || !id_kelas ) {
          setShowFieldReqModal(true);
       } else {
          try {
@@ -82,7 +82,9 @@ const Matakuliah = () => {
                body: JSON.stringify({
                   title: title,
                   sks: sks,
-                  kelas: kelas,
+                  id_kelas: id_kelas,
+                  
+                  
                }),
             });
 
@@ -103,7 +105,7 @@ const Matakuliah = () => {
    };
 
    const matakuliahEditHandler = async () => {
-      if (!title || !sks || !kelas) {
+      if (!title || !sks || !id_kelas) {
          setShowFieldReqModal(true);
       } else {
          try {
@@ -118,7 +120,7 @@ const Matakuliah = () => {
                body: JSON.stringify({
                   title: title,
                   sks: sks,
-                  kelas: kelas,
+                  id_kelas: id_kelas,
                }),
             });
 
@@ -153,24 +155,7 @@ const Matakuliah = () => {
                            <Label htmlFor="title" value="TITLE" />
                         </div>
 
-                        <TextInput
-                           id="title"
-                           placeholder="TITLE"
-                           type="text"
-                           onChange={(event) => {
-                              const re = /^[0-9\b]+$/; // Regex pattern to allow only numbers
-                              if (event.target.value === "" || re.test(event.target.value)) {
-                                 setTitle(event.target.value);
-                              }
-                           }}
-                           onKeyDown={(event) => {
-                              const re = /^[0-9\b]+$/; // Regex pattern to allow only numbers
-                              if (event.key !== "Backspace" && !re.test(event.key)) {
-                                 event.preventDefault();
-                              }
-                           }}
-                           required
-                        />
+                        <TextInput id="title" placeholder="TITLE" type="text" onChange={(event) => setKelas(event.target.value)} required />
                      </div>
                      <div>
                         <div className="mb-2 block">
@@ -191,13 +176,13 @@ const Matakuliah = () => {
                      </div>
                      <div>
                         <div className="mb-2 block">
-                           <Label htmlFor="kelas" value="kelas" />
+                           <Label htmlFor="id_kelas" value="id_kelas" />
                         </div>
 
-                        <TextInput id="kelas" placeholder="kelas" onChange={(event) => setKelas(event.target.value)} required />
+                        <TextInput id="id_kelas" placeholder="id_kelas" onChange={(event) => setKelas(event.target.value)} required />
                      </div>
                      <Button
-                        disabled={!title || !sks || !kelas}
+                        disabled={!title || !sks || !id_kelas}
                         onClick={() => {
                            setShowAddModal(false);
                            matakuliahAddHandler();
@@ -218,24 +203,7 @@ const Matakuliah = () => {
                         <div className="mb-2 block">
                            <Label htmlFor="title" value="TITLE" />
                         </div>
-                        <TextInput
-                           id="title"
-                           placeholder="TITLE"
-                           type="text"
-                           onChange={(event) => {
-                              const re = /^[0-9]+$/; // Regex pattern to allow only numbers
-                              if (event.target.value === "" || re.test(event.target.value)) {
-                                 setTitle(event.target.value);
-                              }
-                           }}
-                           onKeyDown={(event) => {
-                              const re = /^[0-9]+$/; // Regex pattern to allow only numbers
-                              if (event.key !== "Backspace" && !re.test(event.key)) {
-                                 event.preventDefault();
-                              }
-                           }}
-                           required
-                        />
+                        <TextInput id="title" placeholder="TITLE" type="text"  onChange={(event) => setTitle(event.target.value)} required />
                      </div>
                      <div>
                         <div className="mb-2 block">
@@ -245,12 +213,12 @@ const Matakuliah = () => {
                      </div>
                      <div>
                         <div className="mb-2 block">
-                           <Label htmlFor="kelas" value="kelas" />
+                           <Label htmlFor="id_kelas" value="id_kelas" />
                         </div>
-                        <TextInput id="kelas" type="kelas" placeholder="kelas" onChange={(event) => setKelas(event.target.value)} required />
+                        <TextInput id="id_kelas" type="id_kelas" placeholder="id_kelas" onChange={(event) => setKelas(event.target.value)} required />
                      </div>
                      <Button
-                        disabled={!title || !sks || !kelas}
+                        disabled={!title || !sks || !id_kelas}
                         onClick={() => {
                            setShowEditModal(false);
                            matakuliahEditHandler();
@@ -261,7 +229,6 @@ const Matakuliah = () => {
                   </div>
                </Modal.Body>
             </Modal>
-
             <div className="flex max-w-md m-7 justify-between items-center relative">
                <div className="mb-2 block flex-grow">
                   <Label className="text-xl" htmlFor="base" value="Search Matakuliah" />
@@ -284,7 +251,7 @@ const Matakuliah = () => {
                         SKS
                      </Table.HeadCell>
                      <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
-                        kelas
+                        id_kelas
                      </Table.HeadCell>
                      <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: "10%" }}>
                         Action
@@ -304,7 +271,7 @@ const Matakuliah = () => {
                                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "30%" }}>
                                     {data.sks}
                                  </Table.Cell>
-                                 <Table.Cell style={{ width: "30%" }}>{data.kelas}</Table.Cell>
+                                 <Table.Cell style={{ width: "30%" }}>{data.id_kelas}</Table.Cell>
                                  <Table.Cell style={{ width: "10%" }}>
                                     <a
                                        onClick={() => {
