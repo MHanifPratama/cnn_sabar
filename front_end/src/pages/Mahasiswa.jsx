@@ -15,7 +15,7 @@ const Mahasiswa = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [npm, setNpm] = useState('');
     const [nama, setNama] = useState('');
-    const [alamat, setAlamat] = useState('');
+    const [email, setEmail] = useState('');
     const [search, setSearch] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showFieldReqModal, setShowFieldReqModal] = useState(false)
@@ -27,14 +27,14 @@ const Mahasiswa = () => {
         setShowAddModal(false);
         setNpm('');
         setNama('');
-        setAlamat('');
+        setEmail('');
     }
 
     const onCloseEditModal = () => {
         setShowEditModal(false);
         setNpm('');
         setNama('');
-        setAlamat('');
+        setEmail('');
     }
 
     useEffect(() => {
@@ -68,7 +68,7 @@ const Mahasiswa = () => {
     }, []);
 
     const mahasiswaAddHandler = async () => {
-        if (!npm || !nama || !alamat) {
+        if (!npm || !nama || !email) {
             setShowFieldReqModal(true)
         }
         else {
@@ -84,7 +84,7 @@ const Mahasiswa = () => {
                     body: JSON.stringify({
                         "npm": npm,
                         "nama_mahasiswa": nama,
-                        "email": alamat
+                        "email": email
                     })
                 });
     
@@ -106,7 +106,7 @@ const Mahasiswa = () => {
     }
 
     const mahasiswaEditHandler = async () => {
-        if (!npm || !nama || !alamat) {
+        if (!npm || !nama || !email) {
             setShowFieldReqModal(true)
         } else {
             try {
@@ -121,7 +121,7 @@ const Mahasiswa = () => {
                     body: JSON.stringify({
                         "npm": npm,
                         "nama_mahasiswa": nama,
-                        "email": alamat
+                        "email": email
                     })
                 });
 
@@ -204,12 +204,12 @@ const Mahasiswa = () => {
                         <TextInput
                             id="email"
                             placeholder="Email"
-                            onChange={(event) => setAlamat(event.target.value)}
+                            onChange={(event) => setEmail(event.target.value)}
                             required
                         />
 
                         </div>
-                        <Button disabled={!npm || !nama || !alamat} onClick={() => {
+                        <Button disabled={!npm || !nama || !email} onClick={() => {
                             setShowAddModal(false);
                             mahasiswaAddHandler();
                             }}>Add Mahasiswa</Button>
@@ -265,11 +265,11 @@ const Mahasiswa = () => {
                                     id="email"
                                     type="email"
                                     placeholder="Email"
-                                    onChange={(event) => setAlamat(event.target.value)}
+                                    onChange={(event) => setEmail(event.target.value)}
                                     required
                                 />
                             </div>
-                            <Button disabled={!npm || !nama || !alamat} onClick={() => {
+                            <Button disabled={!npm || !nama || !email} onClick={() => {
                                 setShowEditModal(false);
                                 mahasiswaEditHandler();
                             }}>Edit Mahasiswa</Button>

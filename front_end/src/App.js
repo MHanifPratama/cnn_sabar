@@ -8,6 +8,7 @@ import Mahasiswa from './pages/Mahasiswa';
 import Ruangan from './pages/Ruangan';
 import PrivateRoutes from './utils/PrivateRoutes';
 import Periode from './pages/Periode';
+import MataKuliah from './pages/MataKuliah';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import { Routes, Route } from "react-router-dom";
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/kelas" element={<Kelas />} />
             <Route path="/periode" element={<Periode />} />
             <Route path="/ruangan" element={<Ruangan />} />
+            <Route path="/matakuliah" element={<MataKuliah />} />
             <Route path="*" element={<NotFound />} />
           </Route>
 
