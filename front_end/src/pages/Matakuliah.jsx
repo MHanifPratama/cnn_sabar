@@ -33,6 +33,54 @@ const kelasAddHandler = async () => {
       return []; // Return an empty array in case of an error
    }
 };
+const periodeAddHandler = async () => {
+   try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/periode/`, {
+         method: "GET",
+         headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token,
+         },
+      });
+
+      if (response.ok) {
+         const result = await response.json();
+         // Assuming 'data' from the response is an array of items
+         return result.data; // Returning the fetched data
+      } else {
+         throw new Error("Failed to fetch data");
+      }
+   } catch (error) {
+      console.error(error);
+      return []; // Return an empty array in case of an error
+   }
+};
+const ruanganAddHandler = async () => {
+   try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/ruangan/`, {
+         method: "GET",
+         headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token,
+         },
+      });
+
+      if (response.ok) {
+         const result = await response.json();
+         // Assuming 'data' from the response is an array of items
+         return result.data; // Returning the fetched data
+      } else {
+         throw new Error("Failed to fetch data");
+      }
+   } catch (error) {
+      console.error(error);
+      return []; // Return an empty array in case of an error
+   }
+};
 
 const Matakuliah = () => {
    const [userData, setUserData] = useState([]);
@@ -41,6 +89,9 @@ const Matakuliah = () => {
    const [title, setTitle] = useState("");
    const [sks, setSKS] = useState("");
    const [id_kelas, setKelas] = useState("");
+   const [id_periode, setPeriode] = useState("");
+   const [id_ruangan, setRuangan] = useState("");
+
    const [search, setSearch] = useState("");
    const [showSuccessModal, setShowSuccessModal] = useState(false);
    const [showFieldReqModal, setShowFieldReqModal] = useState(false);
@@ -48,13 +99,16 @@ const Matakuliah = () => {
    const [selectedId, setSelectedId] = useState(null);
    const [showTokenModal, setShowTokenModal] = useState(false);
    const [kelasData, setKelasData] = useState([]);
-   const [selectedItem, setSelectedItem] = useState(null);
+   const [periodeData, setPeriodeData] = useState([]);
+   const [ruanganData, setRuanganData] = useState([]);
 
    const onCloseAddModal = () => {
       setShowAddModal(false);
       setTitle("");
       setSKS("");
       setKelas("");
+      setPeriode("");
+      setRuangan("");
    };
 
    const onCloseEditModal = () => {
@@ -62,6 +116,8 @@ const Matakuliah = () => {
       setTitle("");
       setSKS("");
       setKelas("");
+      setPeriode("");
+      setRuangan("");
    };
 
    useEffect(() => {
@@ -94,9 +150,18 @@ const Matakuliah = () => {
          const data = await kelasAddHandler();
          setKelasData(data); // Set the fetched data to state
       };
+      const fetchPeriodeData = async () => {
+         const data = await periodeAddHandler();
+         setPeriodeData(data); // Set the fetched data to state
+      };
+      const fetchRuanganData = async () => {
+         const data = await ruanganAddHandler();
+         setRuanganData(data); // Set the fetched data to state
+      };
 
       fetchKelasData();
-
+      fetchPeriodeData();
+      fetchRuanganData();
       fetchData();
    }, []);
 
@@ -116,9 +181,48 @@ const Matakuliah = () => {
          </Dropdown>
       );
    };
+   const DropdownPeriode = ({ onSelect }) => {
+      const handleSelect = (item) => {
+         onSelect(item.id); // Pass the selected item's ID to the parent component
+      };
+
+      return (
+         <Dropdown label="Dropdown button">
+            {ruanganData.map((item) => (
+               <Dropdown.Item key={item.id} onClick={() => handleSelect(item)}>
+                  {item.nama_periode}
+               </Dropdown.Item>
+            ))}
+            {/* Other dropdown items */}
+         </Dropdown>
+      );
+   };
+
+   const DropdownRuangan = ({ onSelect }) => {
+      const handleSelect = (item) => {
+         onSelect(item.id); // Pass the selected item's ID to the parent component
+      };
+
+      return (
+         <Dropdown label="Dropdown button">
+            {periodeData.map((item) => (
+               <Dropdown.Item key={item.id} onClick={() => handleSelect(item)}>
+                  {item.nama_ruangan}
+               </Dropdown.Item>
+            ))}
+            {/* Other dropdown items */}
+         </Dropdown>
+      );
+   };
 
    const handleSelectItem = (selectedItemId) => {
       setKelas(selectedItemId); // Set the selected ID to state
+   };
+   const handleSelectItemPeriode = (selectedItemId) => {
+      setPeriode(selectedItemId); // Set the selected ID to state
+   };
+   const handleSelectItemRuangan = (selectedItemId) => {
+      setRuangan(selectedItemId); // Set the selected ID to state
    };
 
    const matakuliahAddHandler = async () => {
@@ -137,7 +241,9 @@ const Matakuliah = () => {
                body: JSON.stringify({
                   title: title,
                   sks: sks,
-                  id_kelas: id_kelas, // Use the selected ID obtained from the dropdown
+                  id_kelas: id_kelas,
+                  id_periode: id_periode,
+                  id_ruangan: id_ruangan, // Use the selected ID obtained from the dropdown
                }),
             });
 
@@ -234,8 +340,20 @@ const Matakuliah = () => {
                         </div>
                         <DropdownKelas onSelect={handleSelectItem} />
                      </div>
+                     <div>
+                        <div className="mb-2 block">
+                           <Label htmlFor="id_periode" value="id_periode" />
+                        </div>
+                        <DropdownPeriode onSelect={handleSelectItemPeriode} />
+                     </div>
+                     <div>
+                        <div className="mb-2 block">
+                           <Label htmlFor="id_ruangan" value="id_ruangan" />
+                        </div>
+                        <DropdownRuangan onSelect={handleSelectItemRuangan} />
+                     </div>
                      <Button
-                        disabled={!title || !sks || !id_kelas} // Update condition to include selectedItem
+                        disabled={!title || !sks || !id_kelas || !id_periode || !id_ruangan} // Update condition to include selectedItem
                         onClick={() => {
                            setShowAddModal(false);
                            matakuliahAddHandler();
@@ -306,6 +424,12 @@ const Matakuliah = () => {
                      <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
                         id_kelas
                      </Table.HeadCell>
+                     <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
+                        id_periode
+                     </Table.HeadCell>
+                     <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: "30%" }}>
+                        id_ruangan
+                     </Table.HeadCell>
                      <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: "10%" }}>
                         Action
                      </Table.HeadCell>
@@ -325,6 +449,8 @@ const Matakuliah = () => {
                                     {data.sks}
                                  </Table.Cell>
                                  <Table.Cell style={{ width: "30%" }}>{data.id_kelas}</Table.Cell>
+                                 <Table.Cell style={{ width: "30%" }}>{data.id_periode}</Table.Cell>
+                                 <Table.Cell style={{ width: "30%" }}>{data.id_ruangan}</Table.Cell>
                                  <Table.Cell style={{ width: "10%" }}>
                                     <a
                                        onClick={() => {
