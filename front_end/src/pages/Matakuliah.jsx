@@ -36,19 +36,13 @@ const MataKuliah = () => {
         setTitle('');
         setSks('');
         setJadwal('');
-        setSelectedKelas('');
-        setSelectedPeriode('');
-        setSelectedRuangan('');
     }
 
     const onCloseEditModal = () => {
-        setShowAddModal(false);
+        setShowEditModal(false);
         setTitle('');
         setSks('');
         setJadwal('');
-        setSelectedKelas('');
-        setSelectedPeriode('');
-        setSelectedRuangan('');
     }
 
     useEffect(() => {
