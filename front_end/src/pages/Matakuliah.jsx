@@ -6,7 +6,33 @@ import { useState, useEffect } from "react";
 import FieldRequirement from "../components/FieldRequirement";
 import SuccessModal from "../components/SuccessModal";
 import { GrSearch } from "react-icons/gr";
+import { Dropdown } from "flowbite-react";
 import TokenExpired from "../utils/TokenExpired";
+
+const kelasAddHandler = async () => {
+   try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/kelas/`, {
+         method: "GET",
+         headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: token,
+         },
+      });
+
+      if (response.ok) {
+         const result = await response.json();
+         // Assuming 'data' from the response is an array of items
+         return result.data; // Returning the fetched data
+      } else {
+         throw new Error("Failed to fetch data");
+      }
+   } catch (error) {
+      console.error(error);
+      return []; // Return an empty array in case of an error
+   }
+};
 
 const Matakuliah = () => {
    const [userData, setUserData] = useState([]);
@@ -21,6 +47,8 @@ const Matakuliah = () => {
    const [showDeleteModal, setShowDeleteModal] = useState(false);
    const [selectedId, setSelectedId] = useState(null);
    const [showTokenModal, setShowTokenModal] = useState(false);
+   const [kelasData, setKelasData] = useState([]);
+   const [selectedItem, setSelectedItem] = useState(null);
 
    const onCloseAddModal = () => {
       setShowAddModal(false);
@@ -62,9 +90,36 @@ const Matakuliah = () => {
             console.error(error);
          }
       };
+      const fetchKelasData = async () => {
+         const data = await kelasAddHandler();
+         setKelasData(data); // Set the fetched data to state
+      };
+
+      fetchKelasData();
 
       fetchData();
    }, []);
+
+   const DropdownKelas = ({ onSelect }) => {
+      const handleSelect = (item) => {
+         onSelect(item.id); // Pass the selected item's ID to the parent component
+      };
+
+      return (
+         <Dropdown label="Dropdown button">
+            {kelasData.map((item) => (
+               <Dropdown.Item key={item.id} onClick={() => handleSelect(item)}>
+                  {item.nama_kelas}
+               </Dropdown.Item>
+            ))}
+            {/* Other dropdown items */}
+         </Dropdown>
+      );
+   };
+
+   const handleSelectItem = (selectedItemId) => {
+      setKelas(selectedItemId); // Set the selected ID to state
+   };
 
    const matakuliahAddHandler = async () => {
       if (!title || !sks || !id_kelas) {
@@ -82,22 +137,23 @@ const Matakuliah = () => {
                body: JSON.stringify({
                   title: title,
                   sks: sks,
-                  id_kelas: id_kelas,
+                  id_kelas: id_kelas, // Use the selected ID obtained from the dropdown
                }),
             });
 
             if (response.ok) {
-               const result = response.json();
+               const result = await response.json(); // Need to await for JSON parsing
                if (result.message === "Invalid Token") {
                   setShowTokenModal(true);
                } else {
                   setShowSuccessModal(true);
                }
             } else {
-               throw new Error("Failed to fetch data");
+               throw new Error("Failed to add matakuliah");
             }
          } catch (error) {
-            alert(error);
+            console.error(error);
+            alert(error.message);
          }
       }
    };
@@ -163,7 +219,7 @@ const Matakuliah = () => {
                         <TextInput
                            id="sks"
                            type="text"
-                           placeholder="Nama"
+                           placeholder="SKS"
                            onChange={(event) => {
                               const enteredValue = event.target.value;
                               setSKS(enteredValue);
@@ -176,11 +232,10 @@ const Matakuliah = () => {
                         <div className="mb-2 block">
                            <Label htmlFor="id_kelas" value="id_kelas" />
                         </div>
-
-                        <TextInput id="id_kelas" placeholder="id_kelas" onChange={(event) => setKelas(event.target.value)} required />
+                        <DropdownKelas onSelect={handleSelectItem} />
                      </div>
                      <Button
-                        disabled={!title || !sks || !id_kelas}
+                        disabled={!title || !sks || !id_kelas} // Update condition to include selectedItem
                         onClick={() => {
                            setShowAddModal(false);
                            matakuliahAddHandler();
@@ -301,6 +356,7 @@ const Matakuliah = () => {
             <SuccessModal showSuccessModal={showSuccessModal} setShowSuccessModal={setShowSuccessModal} />
             <FieldRequirement showFieldReqModal={showFieldReqModal} setShowFieldReqModal={setShowFieldReqModal} />
             <DeleteMatakuliahModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={selectedId} setUserData={setUserData} userData={userData} />
+            {/* <EditMatakuliahModal showEditModal={showEditModal} setShowEditModal={setShowEditModal} id={selectedId} setUserData={setUserData} userData={userData} /> */}
             <TokenExpired showTokenModal={showTokenModal} setShowTokenModal={setShowTokenModal} />
          </>
       </div>
