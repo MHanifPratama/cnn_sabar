@@ -11,6 +11,8 @@ import { MdDateRange } from "react-icons/md";
 import { MdMenuBook } from "react-icons/md";
 import ConfirmLogoutModal from './ConfirmLogoutModal';
 import { DarkThemeToggle } from 'flowbite-react';
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 const CustomSidebar = () => {
     const navigate = useNavigate();
@@ -82,6 +84,26 @@ const CustomSidebar = () => {
                             }}
                         >
                             Mata Kuliah
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={FaMagnifyingGlass}
+                            className={`hover:cursor-pointer ${location.pathname === '/peminat' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/peminat');
+                                handleItemClick('Peminat');
+                            }}
+                        >
+                            Peminat
+                        </Sidebar.Item>
+                        <Sidebar.Item
+                            icon={FaChalkboardTeacher}
+                            className={`hover:cursor-pointer ${location.pathname === '/pengampu' ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                            onClick={() => {
+                                navigate('/pengampu');
+                                handleItemClick('Pengampu');
+                            }}
+                        >
+                            Pengampu
                         </Sidebar.Item>
                         <Sidebar.Item
                             icon={SiGoogleclassroom}

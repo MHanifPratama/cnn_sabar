@@ -1,11 +1,11 @@
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
-const DeleteMataKuliahModal = ({ showDeleteModal, setShowDeleteModal, id, setUserData, userData }) => {
+const DeletePengampuModal = ({ showDeleteModal, setShowDeleteModal, id, setUserData, userData }) => {
     const deleteDataEntry = async () => {
         try {
           const token = sessionStorage.getItem('token');
-          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah/${id}`, {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pengampu/${id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -49,4 +49,4 @@ const DeleteMataKuliahModal = ({ showDeleteModal, setShowDeleteModal, id, setUse
       );
 }
 
-export default DeleteMataKuliahModal
+export default DeletePengampuModal
