@@ -13,6 +13,8 @@ import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import { Routes, Route } from "react-router-dom";
 import { Flowbite } from 'flowbite-react';
+import Peminat from './pages/Peminat';
+import Pengampu from './pages/Pengampu';
 
 const App = () => {
 
@@ -32,6 +34,8 @@ const App = () => {
             <Route path="/kelas" element={<Kelas />} />
             <Route path="/periode" element={<Periode />} />
             <Route path="/ruangan" element={<Ruangan />} />
+            <Route path="/peminat" element={<Peminat />} />
+            <Route path="/pengampu" element={<Pengampu />} />
             <Route path="/matakuliah" element={<MataKuliah />} />
             <Route path="*" element={<NotFound />} />
           </Route>

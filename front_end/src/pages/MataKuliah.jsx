@@ -275,7 +275,7 @@ const MataKuliah = () => {
                                 <Label className="mb-2 block" htmlFor="sks" value="SKS" />
                                 <TextInput
                                     id="sks"
-                                    type="text"
+                                    type="number"
                                     placeholder="SKS"
                                     onChange={(event) => {
                                         const re = /^[0-9]+$/; // Regex pattern to allow only numbers
@@ -362,6 +362,7 @@ const MataKuliah = () => {
                             <div>
                                 <Label className="mb-2 block" htmlFor="edit-sks" value="SKS" />
                                 <TextInput
+                                    type="number"
                                     id="edit-sks"
                                     placeholder="SKS"
                                     onChange={(event) => {
