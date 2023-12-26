@@ -156,6 +156,22 @@ const countAbsensi = async (req, res) => {
    }
 };
 
+const getJadwalAbsensi = async (req, res) => {
+   const { body } = req;
+   try {
+      const data = await Absensi.getJadwalAbsen(body.jadwal, body.id_ruangan);
+      return res.status(200).json({
+         message: "Success",
+         data: data,
+      });
+   } catch (error) {
+      return res.json({
+         message: "Server Error",
+         error: error,
+      });
+   }
+};
+
 module.exports = {
    getAllAbsensi,
    createNewAbsensi,
@@ -163,4 +179,5 @@ module.exports = {
    deleteAbsensi,
    detailAbsensi,
    countAbsensi,
+   getJadwalAbsensi,
 };

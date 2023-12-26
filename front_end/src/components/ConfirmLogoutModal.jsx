@@ -24,6 +24,7 @@ const ConfirmLogoutModal = ({ showModal, setShowModal }) => {
                 sessionStorage.removeItem('user-info')
                 sessionStorage.removeItem('token')
                 sessionStorage.removeItem('status')
+                sessionStorage.removeItem('username')
                 navigate('/login')
                 } }>
                 Yes, i'm sure

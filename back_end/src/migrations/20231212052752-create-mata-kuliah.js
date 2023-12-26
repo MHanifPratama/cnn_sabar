@@ -43,7 +43,10 @@ module.exports = {
             onUpdate: "CASCADE",
             onDelete: "CASCADE", // Define your desired deletion behavior
          },
-         jadwal: {
+         jadwal_mulai: {
+            type: Sequelize.DATE,
+         },
+         jadwal_selesai: {
             type: Sequelize.DATE,
          },
          createdAt: {
