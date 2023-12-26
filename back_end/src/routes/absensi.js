@@ -4,6 +4,7 @@ const routes = express.Router();
 
 routes.get("/", AbsensiController.getAllAbsensi);
 routes.get("/count", AbsensiController.countAbsensi);
+routes.post("/jadwal/", AbsensiController.getJadwalAbsensi);
 routes.get("/:id", AbsensiController.detailAbsensi);
 routes.post("/", AbsensiController.createNewAbsensi);
 routes.patch("/:id", AbsensiController.updateAbsensi);
