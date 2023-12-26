@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
          id_kelas: DataTypes.INTEGER,
          id_periode: DataTypes.INTEGER,
          id_ruangan: DataTypes.INTEGER,
-         jadwal: DataTypes.DATE,
+         jadwal_mulai: DataTypes.DATE,
+         jadwal_selesai: DataTypes.DATE,
       },
       {
          sequelize,

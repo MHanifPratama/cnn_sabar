@@ -31,7 +31,8 @@ const createNewMataKuliah = async (req, res) => {
          id_kelas: body.id_kelas,
          id_periode: body.id_periode,
          id_ruangan: body.id_ruangan,
-         jadwal: body.jadwal,
+         jadwal_mulai: body.jadwal_mulai,
+         jadwal_selesai: body.jadwal_selesai,
       });
       return res.status(200).json({
          message: "Success",
@@ -56,7 +57,8 @@ const updateMataKuliah = async (req, res) => {
             id_kelas: body.id_kelas,
             id_periode: body.id_periode,
             id_ruangan: body.id_ruangan,
-            jadwal: body.jadwal,
+            jadwal_mulai: body.jadwal_mulai,
+            jadwal_selesai: body.jadwal_selesai,
          },
          {
             where: {
