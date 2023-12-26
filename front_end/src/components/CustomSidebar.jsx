@@ -26,7 +26,7 @@ const CustomSidebar = () => {
 
     return (
         <div className='min-h-screen'>  
-            <Sidebar aria-label="Default sidebar example" className="border-r border-gray-300 dark:border-gray-900">
+            <Sidebar aria-label="Sidebar" className="border-r border-gray-300 dark:border-gray-700">
                 <div className='flex item-center justify-center'>
                 <DarkThemeToggle className=''/>
                     <h1 className="text-xl m-5 ml-0 font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">

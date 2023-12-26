@@ -83,6 +83,9 @@ const Peminat = () => {
                 if (response.ok) {
                     const result = await response.json();
                     setMahasiswaData(result.data);
+                    if (result.message === 'Invalid Token') {
+                        setShowTokenModal(true)
+                    }
                 } else {
                     throw new Error('Failed to fetch mahasiswa data');
                 }
@@ -110,6 +113,9 @@ const Peminat = () => {
                 if (response.ok) {
                     const result = await response.json();
                     setMataKuliahData(result.data);
+                    if (result.message === 'Invalid Token') {
+                        setShowTokenModal(true)
+                    }
                 } else {
                     throw new Error('Failed to fetch mataKuliah data');
                 }
@@ -182,6 +188,9 @@ const Peminat = () => {
                     const result = response.json()
                     if (result.message === 'Invalid Token') {
                         setShowTokenModal(true)
+                        if (result.message === 'Invalid Token') {
+                            setShowTokenModal(true)
+                        }
                     } else {
                         setShowSuccessModal(true)
                     }
@@ -231,7 +240,7 @@ const Peminat = () => {
                             <Button disabled={!selectedMataKuliah || !selectedMahasiswa} onClick={() => {
                                 setShowAddModal(false);
                                 peminatAddHandler();
-                            }}>Add Mata Kuliah</Button>
+                            }}>Add Pengampu</Button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -266,7 +275,7 @@ const Peminat = () => {
                             <Button disabled={ !selectedMataKuliah || !selectedMahasiswa } onClick={() => {
                                 setShowEditModal(false);
                                 peminatEditHandler();
-                            }}>Edit Mata Kuliah</Button>
+                            }}>Edit Pengampu</Button>
                         </div>
                     </div>
                 </Modal.Body>

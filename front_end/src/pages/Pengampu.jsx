@@ -83,6 +83,9 @@ const Pengampu = () => {
                 if (response.ok) {
                     const result = await response.json();
                     setDosenData(result.data);
+                    if (result.message === 'Invalid Token') {
+                        setShowTokenModal(true)
+                    }
                 } else {
                     throw new Error('Failed to fetch dosen data');
                 }
@@ -110,6 +113,9 @@ const Pengampu = () => {
                 if (response.ok) {
                     const result = await response.json();
                     setMataKuliahData(result.data);
+                    if (result.message === 'Invalid Token') {
+                        setShowTokenModal(true)
+                    }
                 } else {
                     throw new Error('Failed to fetch mataKuliah data');
                 }
@@ -266,7 +272,7 @@ const Pengampu = () => {
                             <Button disabled={ !selectedMataKuliah || !selectedDosen } onClick={() => {
                                 setShowEditModal(false);
                                 pengampuEditHandler();
-                            }}>Edit Mata Kuliah</Button>
+                            }}>Edit Pengampu</Button>
                         </div>
                     </div>
                 </Modal.Body>

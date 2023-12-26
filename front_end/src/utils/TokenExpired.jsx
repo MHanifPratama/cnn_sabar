@@ -21,6 +21,7 @@ const TokenExpired = ({showTokenModal, setShowTokenModal}) => {
                   <Button color="failure" onClick={() => {
                     sessionStorage.removeItem('status')
                     sessionStorage.removeItem('token')
+                    sessionStorage.removeItem('username')
                     navigate('/login')
                     setShowTokenModal(false)
                     }}>

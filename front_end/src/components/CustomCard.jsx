@@ -4,7 +4,7 @@ import { Card } from 'flowbite-react';
 const CustomCard = ({subject, total}) => {
 
   return (
-    <Card style={{ width: 200 }} className="flex">
+    <Card style={{ width: 250 }} className="flex">
         <center>
         <h2 className='mb-3 text-l font-bold tracking-tight text-gray-900 dark:text-white'>
             {subject}
