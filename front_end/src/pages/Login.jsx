@@ -38,6 +38,7 @@ const Login = () => {
         if (result.message === "Success Login") {
           sessionStorage.setItem('status', 'loggedin');
           sessionStorage.setItem('token', result.token);
+          sessionStorage.setItem('username', result.data["username"]);
           setShowModal(true);
         } else if (result.message === "Invalid Login") {
           setOpenModal(true)
