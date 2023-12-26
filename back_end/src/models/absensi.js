@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
          Absensi.belongsTo(models.Pengampu, { foreignKey: "id_pengampu" });
          Absensi.belongsTo(models.MataKuliah, { foreignKey: "id_mk" });
       }
-      static async getJadwalAbsen(jadwal,id_kelas){
+      static async getJadwalAbsen(jadwal,id_ruangan){
          const query = `
                         SELECT
                            mhs.npm,
@@ -27,12 +27,15 @@ module.exports = (sequelize, DataTypes) => {
                            LEFT JOIN kelas AS kls ON mk.id_kelas = kls.id
                         WHERE
                            :jadwal BETWEEN mk.jadwal_mulai AND mk.jadwal_selesai
-                           and kls.id = :id_kelas;
+                           and rng.id = :id_ruangan;
                      `;
          const result = await sequelize.query(
             query,
             {
-               replacements: { jadwal: jadwal,id_kelas:id_kelas },
+               replacements: { 
+                  jadwal: jadwal,
+                  id_ruangan:id_ruangan 
+               },
                type: sequelize.QueryTypes.SELECT,
             })
          return result
