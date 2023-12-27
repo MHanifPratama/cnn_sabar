@@ -3,6 +3,7 @@ import os
 import cv2
 from PIL import Image
 import numpy as np
+from io import BytesIO
 
 class ModelConfiguration:
     def __init__(self):
@@ -24,10 +25,11 @@ class ModelConfiguration:
         return img
     
     def image_preprocess(self, img):
-        image = Image.open(img)
+        img_bytesio = BytesIO(img)
+        image = Image.open(img_bytesio)
         image = image.resize((self.height, self.width))
-        image = np.expand_dims(image, axis=0)
-        return image
+        image_array = np.expand_dims(np.array(image), axis=0)
+        return image_array
 
     def get_class_name(self):
         class_name = ['2017051001',
