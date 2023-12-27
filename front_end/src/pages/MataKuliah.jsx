@@ -17,7 +17,8 @@ const MataKuliah = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [title, setTitle] = useState('');
     const [sks, setSks] = useState('');
-    const [jadwal, setJadwal] = useState('');
+    const [jadwalMulai, setJadwalMulai] = useState('');
+    const [jadwalSelesai, setJadwalSelesai] = useState('');
     const [search, setSearch] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showFieldReqModal, setShowFieldReqModal] = useState(false)
@@ -35,7 +36,7 @@ const MataKuliah = () => {
         setShowAddModal(false);
         setTitle('');
         setSks('');
-        setJadwal('');
+        setJadwalMulai('');
         setSelectedKelas('');
         setSelectedPeriode('');
         setSelectedRuangan('');
@@ -45,7 +46,7 @@ const MataKuliah = () => {
         setShowEditModal(false);
         setTitle('');
         setSks('');
-        setJadwal('');
+        setJadwalMulai('');
         setSelectedKelas('');
         setSelectedPeriode('');
         setSelectedRuangan('');
@@ -166,7 +167,7 @@ const MataKuliah = () => {
 
 
     const mataKuliahAddHandler = async () => {
-        if (!title || !sks || !jadwal || !selectedKelas || !selectedPeriode || !selectedRuangan) {
+        if (!title || !sks || !jadwalMulai || !selectedKelas || !selectedPeriode || !selectedRuangan || !jadwalSelesai) {
             setShowFieldReqModal(true)
         }
         else {
@@ -185,7 +186,8 @@ const MataKuliah = () => {
                         "id_kelas": selectedKelas,
                         "id_periode": selectedPeriode,
                         "id_ruangan": selectedRuangan,
-                        "jadwal": jadwal
+                        "jadwal_mulai": jadwalMulai,
+                        "jadwal_selesai": jadwalSelesai
                     })
                 });
     
@@ -207,7 +209,7 @@ const MataKuliah = () => {
     }
 
     const mataKuliahEditHandler = async () => {
-        if (!title || !sks || !jadwal || !selectedPeriode || !selectedKelas || !selectedRuangan ) {
+        if (!title || !sks || !jadwalMulai || !selectedPeriode || !selectedKelas || !selectedRuangan || !jadwalSelesai) {
             setShowFieldReqModal(true)
         } else {
             try {
@@ -225,7 +227,8 @@ const MataKuliah = () => {
                         "id_kelas": selectedKelas,
                         "id_periode": selectedPeriode,
                         "id_ruangan": selectedRuangan,
-                        "jadwal": jadwal
+                        "jadwal_mulai": jadwalMulai,
+                        "jadwal_selesai": jadwalSelesai
                     })
                 });
 
@@ -294,11 +297,20 @@ const MataKuliah = () => {
                                 />
                             </div>
                             <div>
-                                <Label className="mb-2 block" htmlFor="jadwal" value="Jadwal" />
+                                <Label className="mb-2 block" htmlFor="jadwalMulai" value="Jadwal Mulai" />
                                 <TextInput
-                                    id="jadwal"
-                                    placeholder="Jadwal"
-                                    onChange={(event) => setJadwal(event.target.value)}
+                                    id="jadwalMulai"
+                                    placeholder="Jadwal Mulai"
+                                    onChange={(event) => setJadwalMulai(event.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <Label className="mb-2 block" htmlFor="jadwalSelesai" value="Jadwal Selesai" />
+                                <TextInput
+                                    id="jadwalSelesai"
+                                    placeholder="Jadwal Selesai"
+                                    onChange={(event) => setJadwalSelesai(event.target.value)}
                                     required
                                 />
                             </div>
@@ -332,7 +344,7 @@ const MataKuliah = () => {
                                     ))}
                                 </Dropdown>
                             </div>
-                            <Button disabled={ !title || !sks || !jadwal || !selectedPeriode || !selectedKelas || !selectedRuangan } onClick={() => {
+                            <Button disabled={ !title || !sks || !jadwalMulai || !selectedPeriode || !selectedKelas || !selectedRuangan } onClick={() => {
                                 setShowAddModal(false);
                                 mataKuliahAddHandler();
                             }}>Add Mata Kuliah</Button>
@@ -381,11 +393,20 @@ const MataKuliah = () => {
                                 />
                             </div>
                             <div>
-                                <Label className="mb-2 block" htmlFor="edit-jadwal" value="Jadwal" />
+                                <Label className="mb-2 block" htmlFor="edit-jadwalMulai" value="Jadwal" />
                                 <TextInput
-                                    id="edit-jadwal"
+                                    id="edit-jadwalMulai"
                                     placeholder="Jadwal"
-                                    onChange={(event) => setJadwal(event.target.value)}
+                                    onChange={(event) => setJadwalMulai(event.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <Label className="mb-2 block" htmlFor="jadwalSelesai" value="Jadwal Selesai" />
+                                <TextInput
+                                    id="jadwalSelesai"
+                                    placeholder="Jadwal Selesai"
+                                    onChange={(event) => setJadwalSelesai(event.target.value)}
                                     required
                                 />
                             </div>
@@ -419,7 +440,7 @@ const MataKuliah = () => {
                                     ))}
                                 </Dropdown>
                             </div>
-                            <Button disabled={ !title || !sks || !jadwal || !selectedPeriode || !selectedKelas || !selectedRuangan } onClick={() => {
+                            <Button disabled={ !title || !sks || !jadwalMulai || !selectedPeriode || !selectedKelas || !selectedRuangan } onClick={() => {
                                 setShowEditModal(false);
                                 mataKuliahEditHandler();
                             }}>Edit Mata Kuliah</Button>
@@ -446,7 +467,7 @@ const MataKuliah = () => {
                             <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '15%' }}>Kelas</Table.HeadCell>
                             <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '15%' }}>Periode</Table.HeadCell>
                             <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '15%' }}>Ruangan</Table.HeadCell>
-                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '15%' }}>Jadwal</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '15%' }}>Jadwal Mulai</Table.HeadCell>
                             <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
                                 Action
                             </Table.HeadCell>
@@ -471,7 +492,7 @@ const MataKuliah = () => {
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '15%' }}>
                                         {data.id_ruangan}
                                     </Table.Cell>
-                                    <Table.Cell style={{ width: '15%' }}>{data.jadwal}</Table.Cell>
+                                    <Table.Cell style={{ width: '15%' }}>{data.jadwal_mulai}</Table.Cell>
                                     <Table.Cell style={{ width: '10%' }}> 
                                         <a onClick={() => {
                                             setShowEditModal(true)
