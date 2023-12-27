@@ -264,7 +264,7 @@ const Absensi = () => {
                                 <Label className="mb-2 block" htmlFor="pengampu" value="Pengampu" />
                                 <Dropdown style={{ width: '100%' }} label={selectedPengampu ? selectedPengampu : "Pengampu"}   selected={selectedPengampu}>
                                     {pengampuData.map((pengampu) => (
-                                        <Dropdown.Item onClick={() => setSelectedPeminat(pengampu.id)} key={pengampu.id} value={pengampu.id}>
+                                        <Dropdown.Item onClick={() => setSelectedPengampu(pengampu.id)} key={pengampu.id} value={pengampu.id}>
                                             {pengampu.id}
                                         </Dropdown.Item>
                                     ))}
@@ -300,7 +300,7 @@ const Absensi = () => {
                                 <Dropdown style={{ width: '100%' }} label={selectedPeminat ? selectedPeminat : "Peminat"} onSelect={(value) => setSelectedPeminat(value)} selected={selectedPeminat}>
                                     {peminatData.map((peminat) => (
                                         <Dropdown.Item key={peminat.id} value={peminat.id} onClick={() => setSelectedPeminat(peminat.id)}>
-                                            {peminat.nama_peminat}
+                                            {peminat.id}
                                         </Dropdown.Item>
                                     ))}
                                 </Dropdown>
@@ -309,7 +309,7 @@ const Absensi = () => {
                                 <Label className="mb-2 block" htmlFor="pengampu" value="Pengampu" />
                                 <Dropdown style={{ width: '100%' }} label={selectedPengampu ? selectedPengampu : "Pengampu"}   selected={selectedPengampu}>
                                     {pengampuData.map((pengampu) => (
-                                        <Dropdown.Item onClick={() => setSelectedPeminat(pengampu.id)} key={pengampu.id} value={pengampu.id}>
+                                        <Dropdown.Item onClick={() => setSelectedPengampu(pengampu.id)} key={pengampu.id} value={pengampu.id}>
                                             {pengampu.id}
                                         </Dropdown.Item>
                                     ))}

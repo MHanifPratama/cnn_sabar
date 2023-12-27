@@ -1,5 +1,8 @@
 import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
+import TakePictureButton from './TakePictureButton';
+import ConfirmButton from './ConfirmButton';
+import PostImgFile from '../utils/PostImgFile';
 
 const CustomWebcam = ({ onConfirm, onRetake }) => {
   const webcamRef = useRef(null);
@@ -27,20 +30,28 @@ const CustomWebcam = ({ onConfirm, onRetake }) => {
   const addNpm = (predictedNpm) => {
     onConfirm(predictedNpm);
     retake();
-  }
+  };
 
   return (
-    <div className="container">
+    <div className="container mx-auto">
       {imgSrc ? (
-        <img src={imgSrc} alt="webcam" />
+        <img src={imgSrc} alt="webcam" className="w-full" />
       ) : (
-        <Webcam ref={webcamRef} />
+        <Webcam
+          ref={webcamRef}
+          className="w-full"
+        />
       )}
-      <div className="btn-container">
+      <div className="flex justify-center mt-4">
         {imgSrc ? (
-          <ConfirmButton onClick={retake} onConfirm={() => addNpm(predictedNpm)} predictedNpm={predictedNpm} classProbabilities={classProbabilities}/>
+          <ConfirmButton
+            onClick={retake}
+            onConfirm={() => addNpm(predictedNpm)}
+            predictedNpm={predictedNpm}
+            classProbabilities={classProbabilities}
+          />
         ) : (
-          <TakePictButton onClick={capture} />
+          <TakePictureButton onClick={capture} />
         )}
       </div>
     </div>

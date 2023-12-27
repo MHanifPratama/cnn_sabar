@@ -15,6 +15,7 @@ import { Routes, Route } from "react-router-dom";
 import { Flowbite } from "flowbite-react";
 import Peminat from "./pages/Peminat";
 import Pengampu from "./pages/Pengampu";
+import Camera from "./pages/Camera";
 
 const App = () => {
    return (
@@ -23,6 +24,7 @@ const App = () => {
             <Routes>
                <Route path="/login" element={<Login />} />
                <Route path="/register" element={<Register />} />
+               <Route path="/camera" element={<Camera />} />
 
                <Route element={<PrivateRoutes />}>
                   <Route path="/" element={<Home />} />
