@@ -35,14 +35,13 @@ async def test(text: str):
     return json_data
 
 
-@app.post("/predict-image")
+@app.post("/predict_image")
 async def predict_image_api(image: UploadFile = File(...)):
     if image:
         class_name = model_pred.get_class_name()
-        if image.filename.split(".")[-1] == 'png':
-            image = image.convert('RGB')
         # image = model_pred.image_crops(image.file)
-        image_array = model_pred.image_preprocess(image)
+        image_content = await image.read()
+        image_array = model_pred.image_preprocess(image_content)
         predictions = model.predict(image_array)
         predicted_class = np.argmax(predictions, axis=1)
         class_probabilities = predictions.tolist()[0]
