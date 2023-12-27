@@ -158,8 +158,10 @@ const countAbsensi = async (req, res) => {
 
 const getJadwalAbsensi = async (req, res) => {
    const { body } = req;
+   const date = Date.now();
+   const dates = new Date(date + 7 * 60 * 60 * 1000).toISOString().replace(/T/, ' ').replace(/\..+/, '');
    try {
-      const data = await Absensi.getJadwalAbsen(body.jadwal, body.id_ruangan);
+      const data = await Absensi.getJadwalAbsen(dates, body.id_ruangan);
       return res.status(200).json({
          message: "Success",
          data: data,
