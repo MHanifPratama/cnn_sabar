@@ -174,6 +174,30 @@ const getJadwalAbsensi = async (req, res) => {
    }
 };
 
+const setAbsen = async (req, res) => {
+   const { body } = req;
+   try {
+      console.log(body.npm)
+      const data = await Absensi.setAbsensiTrue(body.npm);
+      if (data[1] == 0){
+         return res.status(404).json({
+            message: "Data not found or could not be updated"
+         });
+      }
+      else{
+         return res.status(200).json({
+            message: "Success"
+         });
+      }
+   } catch (error) {
+      return res.json({
+         message: "Server Error",
+         error: error,
+      });
+   }
+};
+
+
 module.exports = {
    getAllAbsensi,
    createNewAbsensi,
@@ -182,4 +206,5 @@ module.exports = {
    detailAbsensi,
    countAbsensi,
    getJadwalAbsensi,
+   setAbsen,
 };
