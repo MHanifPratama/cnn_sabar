@@ -25,9 +25,9 @@ const MataKuliah = () => {
    const [selectedId, setSelectedId] = useState(null);
    const [showTokenModal, setShowTokenModal] = useState(false);
    const [selectedKelas, setSelectedKelas] = useState("");
+   const [kelasData, setKelasData] = useState([]);
    const [selectedPeriode, setSelectedPeriode] = useState("");
    const [selectedRuangan, setSelectedRuangan] = useState("");
-   const [kelasData, setKelasData] = useState([]);
    const [periodeData, setPeriodeData] = useState([]);
    const [ruanganData, setRuanganData] = useState([]);
 
