@@ -40,6 +40,35 @@ module.exports = (sequelize, DataTypes) => {
             })
          return result
       }
+
+      static async setAbsensiTrue(npm){
+         const query = `
+                     UPDATE 
+                        absensi
+                     SET 
+                        kehadiran = True
+                     WHERE 
+                        id_peminat IN (
+                           SELECT 
+                              pmt.id 
+                           FROM 
+                              peminat as pmt 
+                              left join mahasiswa as mhs on pmt.id_mahasiswa = mhs.id 
+                           WHERE 
+                              mhs.npm = :npm
+                           );
+                     `;
+         const result = await sequelize.query(
+            query,
+            {
+               replacements: { 
+                  npm: npm,
+               },
+               type: sequelize.QueryTypes.UPDATE,
+            })
+         return result
+      }
+
    }
    Absensi.init(
       {

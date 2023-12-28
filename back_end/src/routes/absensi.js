@@ -6,6 +6,7 @@ routes.get("/", AbsensiController.getAllAbsensi);
 routes.get("/count", AbsensiController.countAbsensi);
 routes.post("/jadwal/", AbsensiController.getJadwalAbsensi);
 routes.get("/:id", AbsensiController.detailAbsensi);
+routes.post("/set/", AbsensiController.setAbsen);
 routes.post("/", AbsensiController.createNewAbsensi);
 routes.patch("/:id", AbsensiController.updateAbsensi);
 routes.delete("/:id", AbsensiController.deleteAbsensi);
