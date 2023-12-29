@@ -1,4 +1,6 @@
 const { Peminat } = require("../models");
+const { Absensi } = require("../models");
+const { Pengampu } = require("../models");
 
 const getAllPeminat = async (req, res) => {
    try {
@@ -18,6 +20,7 @@ const getAllPeminat = async (req, res) => {
 
 const createNewPeminat = async (req, res) => {
    const { body } = req;
+   console.log(body);
    try {
       if (!body.id_mahasiswa || !body.id_mk) {
          return res.status(400).json({
@@ -25,13 +28,35 @@ const createNewPeminat = async (req, res) => {
             data: [],
          });
       }
+      const search_dosen = await Pengampu.findAll({
+         where: {
+            id_mk: body.id_mk,
+         },
+      });
+
+      if (search_dosen.length == 0) {
+         return res.status(400).json({
+            message: "Tidak Ada Dosen Pengampu Pada Matakuliah Itu",
+            data: [],
+         });
+      }
+
       const data = await Peminat.create({
          id_mahasiswa: body.id_mahasiswa,
          id_mk: body.id_mk,
       });
+
+      const absensi = await Absensi.create({
+         id_peminat: data.id,
+         id_pengampu: search_dosen[0].id,
+         id_mk: body.id_mk,
+         kehadiran: false,
+      });
+      
       return res.status(201).json({
          message: "Success",
          data: data,
+         data_absensi: absensi
       });
    } catch (error) {
       return res.status(500).json({
@@ -45,7 +70,13 @@ const updatePeminat = async (req, res) => {
    try {
       const { id } = req.params;
       const { body } = req;
-      console.log(body);
+
+      absensi_data = await Absensi.findAll({
+         where: {
+            id_peminat: id,
+         },
+      });
+
       await Peminat.update(
          {
             id_mahasiswa: body.id_mahasiswa,
