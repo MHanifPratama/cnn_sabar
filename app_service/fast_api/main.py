@@ -8,8 +8,6 @@ from model_configuration import *
 class ImageData(BaseModel):
     image:str
 
-hadir = False
-
 app = FastAPI()
 
 app.add_middleware(
@@ -78,17 +76,3 @@ async def predict_image_api_loop(image:ImageData):
         return json_data
     else:
         return {"message": "No image uploaded"}
-    
-@app.post("/face-attendance")
-async def face_attendance(npm: str):
-    if npm == "gaada orang":
-        pass
-    else:
-        if npm not in list_mahasiswa:
-            pass
-        else:
-            json_data = {
-                'npm': npm,
-                'hadir': True,
-            }
-            return json_data

@@ -71,170 +71,170 @@ const Absensi = () => {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const fetchKelasData = async () => {
-            try {
-                const token = sessionStorage.getItem('token');
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/peminat`, {
-                    method: 'GET',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "Authorization": token
-                    }
-                });
+    // useEffect(() => {
+    //     const fetchKelasData = async () => {
+    //         try {
+    //             const token = sessionStorage.getItem('token');
+    //             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/peminat`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     "Accept": "application/json",
+    //                     "Authorization": token
+    //                 }
+    //             });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    setPeminatData(result.data);
-                    if (result.message === 'Invalid Token') {
-                        setShowTokenModal(true)
-                    }
-                } else {
-                    throw new Error('Failed to fetch peminat data');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+    //             if (response.ok) {
+    //                 const result = await response.json();
+    //                 setPeminatData(result.data);
+    //                 if (result.message === 'Invalid Token') {
+    //                     setShowTokenModal(true)
+    //                 }
+    //             } else {
+    //                 throw new Error('Failed to fetch peminat data');
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
 
-        fetchKelasData();
-    }, []);
+    //     fetchKelasData();
+    // }, []);
 
-    useEffect(() => {
-        const fetchKelasData = async () => {
-            try {
-                const token = sessionStorage.getItem('token');
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pengampu`, {
-                    method: 'GET',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "Authorization": token
-                    }
-                });
+    // useEffect(() => {
+    //     const fetchKelasData = async () => {
+    //         try {
+    //             const token = sessionStorage.getItem('token');
+    //             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pengampu`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     "Accept": "application/json",
+    //                     "Authorization": token
+    //                 }
+    //             });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    setPengampuData(result.data);
-                    if (result.message === 'Invalid Token') {
-                        setShowTokenModal(true)
-                    }
-                } else {
-                    throw new Error('Failed to fetch peminat data');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+    //             if (response.ok) {
+    //                 const result = await response.json();
+    //                 setPengampuData(result.data);
+    //                 if (result.message === 'Invalid Token') {
+    //                     setShowTokenModal(true)
+    //                 }
+    //             } else {
+    //                 throw new Error('Failed to fetch peminat data');
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
 
-        fetchKelasData();
-    }, []);
+    //     fetchKelasData();
+    // }, []);
 
-    useEffect(() => {
-        const fetchPeriodeData = async () => {
-            try {
-                const token = sessionStorage.getItem('token');
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah`, {
-                    method: 'GET',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "Authorization": token
-                    }
-                });
+    // useEffect(() => {
+    //     const fetchPeriodeData = async () => {
+    //         try {
+    //             const token = sessionStorage.getItem('token');
+    //             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/matakuliah`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     "Accept": "application/json",
+    //                     "Authorization": token
+    //                 }
+    //             });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    setMataKuliahData(result.data);
-                    if (result.message === 'Invalid Token') {
-                        setShowTokenModal(true)
-                    }
-                } else {
-                    throw new Error('Failed to fetch mataKuliah data');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+    //             if (response.ok) {
+    //                 const result = await response.json();
+    //                 setMataKuliahData(result.data);
+    //                 if (result.message === 'Invalid Token') {
+    //                     setShowTokenModal(true)
+    //                 }
+    //             } else {
+    //                 throw new Error('Failed to fetch mataKuliah data');
+    //             }
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     };
 
-        fetchPeriodeData();
-    }, []);
+    //     fetchPeriodeData();
+    // }, []);
 
 
-    const absensiAddHandler = async () => {
-        if (!selectedPeminat || !selectedMataKuliah || !selectedPengampu) {
-            setShowFieldReqModal(true)
-        }
-        else {
-            try {
-                const token = sessionStorage.getItem('token');
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/absensi/`, {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "Authorization": token
-                    },
-                    body: JSON.stringify({
-                        "id_peminat": selectedPeminat,
-                        "id_pengampu": selectedPengampu,
-                        "id_mk": selectedMataKuliah
-                    })
-                });
+    // const absensiAddHandler = async () => {
+    //     if (!selectedPeminat || !selectedMataKuliah || !selectedPengampu) {
+    //         setShowFieldReqModal(true)
+    //     }
+    //     else {
+    //         try {
+    //             const token = sessionStorage.getItem('token');
+    //             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/absensi/`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     "Accept": "application/json",
+    //                     "Authorization": token
+    //                 },
+    //                 body: JSON.stringify({
+    //                     "id_peminat": selectedPeminat,
+    //                     "id_pengampu": selectedPengampu,
+    //                     "id_mk": selectedMataKuliah
+    //                 })
+    //             });
     
-                if (response.ok) {
-                    const result = response.json()
-                    if (result.message === 'Invalid Token') {
-                        setShowTokenModal(true)
-                    } else {
-                        setShowSuccessModal(true)
-                    }
-                } else {
-                    throw new Error('Failed to fetch data');
-                }
-            } catch (error) {
-                alert(error);
-            }
-        }
+    //             if (response.ok) {
+    //                 const result = response.json()
+    //                 if (result.message === 'Invalid Token') {
+    //                     setShowTokenModal(true)
+    //                 } else {
+    //                     setShowSuccessModal(true)
+    //                 }
+    //             } else {
+    //                 throw new Error('Failed to fetch data');
+    //             }
+    //         } catch (error) {
+    //             alert(error);
+    //         }
+    //     }
         
-    }
+    // }
 
-    const absensiEditHandler = async () => {
-        if (!selectedMataKuliah || !selectedPeminat  || !selectedPengampu) {
-            setShowFieldReqModal(true)
-        } else {
-            try {
-                const token = sessionStorage.getItem('token');
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/absensi/${selectedId}`, {
-                    method: 'PATCH',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        "Authorization": token
-                    },
-                    body: JSON.stringify({
-                        "id_peminat": selectedPeminat,
-                        "id_pengampu": selectedPengampu,
-                        "id_mk": selectedMataKuliah
-                    })
-                });
+    // const absensiEditHandler = async () => {
+    //     if (!selectedMataKuliah || !selectedPeminat  || !selectedPengampu) {
+    //         setShowFieldReqModal(true)
+    //     } else {
+    //         try {
+    //             const token = sessionStorage.getItem('token');
+    //             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/absensi/${selectedId}`, {
+    //                 method: 'PATCH',
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     "Accept": "application/json",
+    //                     "Authorization": token
+    //                 },
+    //                 body: JSON.stringify({
+    //                     "id_peminat": selectedPeminat,
+    //                     "id_pengampu": selectedPengampu,
+    //                     "id_mk": selectedMataKuliah
+    //                 })
+    //             });
 
-                if (response.ok) {
-                    const result = response.json()
-                    if (result.message === 'Invalid Token') {
-                        setShowTokenModal(true)
-                    } else {
-                        setShowSuccessModal(true)
-                    }
-                } else {
-                    throw new Error('Failed to fetch data');
-                }
-            } catch (error) {
-                alert(error);
-            }
-        }
-    }
+    //             if (response.ok) {
+    //                 const result = response.json()
+    //                 if (result.message === 'Invalid Token') {
+    //                     setShowTokenModal(true)
+    //                 } else {
+    //                     setShowSuccessModal(true)
+    //                 }
+    //             } else {
+    //                 throw new Error('Failed to fetch data');
+    //             }
+    //         } catch (error) {
+    //             alert(error);
+    //         }
+    //     }
+    // }
 
     return (
 
@@ -244,7 +244,7 @@ const Absensi = () => {
 
             <div className="w-full h-screen overflow-x-auto">
 
-            <Modal show={showAddModal} size="md" onClose={onCloseAddModal} popup>
+            {/* <Modal show={showAddModal} size="md" onClose={onCloseAddModal} popup>
                 <Modal.Header />
                 <Modal.Body>
                     <div className="space-y-6">
@@ -287,9 +287,9 @@ const Absensi = () => {
                         </div>
                     </div>
                 </Modal.Body>
-            </Modal>
+            </Modal> */}
 
-            <Modal show={showEditModal} size="md" onClose={onCloseEditModal} popup>
+            {/* <Modal show={showEditModal} size="md" onClose={onCloseEditModal} popup>
                 <Modal.Header />
                 <Modal.Body>
                     <div className="space-y-6">
@@ -332,16 +332,16 @@ const Absensi = () => {
                         </div>
                     </div>
                 </Modal.Body>
-            </Modal>
+            </Modal> */}
 
                 <div className="flex max-w-md m-7 justify-between items-center relative">
                     <div className="mb-2 block flex-grow">
                         <Label className="text-xl" htmlFor="base" value="Search Mata Kuliah" />
                         <TextInput placeholder="search" rightIcon={GrSearch} className="mt-2" id="base" type="text" sizing="md" onChange={(e) => setSearch(e.target.value)} />
                     </div>
-                    <div className="absolute right-0" style={{ left: '250%' }}>
+                    {/* <div className="absolute right-0" style={{ left: '250%' }}>
                         <Button onClick={() => setShowAddModal(true)} className="p-3 rounded-full text-white">+</Button>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "78%", width: "95%"}}>
@@ -350,9 +350,9 @@ const Absensi = () => {
                             <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>Peminat</Table.HeadCell>
                             <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>Pengampu</Table.HeadCell>
                             <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>Mata Kuliah</Table.HeadCell>
-                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
+                            {/* <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
                                 Action
-                            </Table.HeadCell>
+                            </Table.HeadCell> */}
                         </Table.Head>
                         <Table.Body className="divide-y">
                         {userData && userData.filter((data) => {
@@ -368,7 +368,7 @@ const Absensi = () => {
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '45%' }}>
                                         {data.id_mk}
                                     </Table.Cell>
-                                    <Table.Cell style={{ width: '10%' }}> 
+                                    {/* <Table.Cell style={{ width: '10%' }}> 
                                         <a onClick={() => {
                                             setShowEditModal(true)
                                             setSelectedId(data.id);
@@ -384,7 +384,7 @@ const Absensi = () => {
                                             className="ml-5 font-medium text-cyan-600 hover:cursor-pointer dark:text-cyan-500">
                                             Delete
                                         </a>
-                                    </Table.Cell>
+                                    </Table.Cell> */}
                                 </Table.Row>
                             ))}
                         </Table.Body>
@@ -396,7 +396,7 @@ const Absensi = () => {
                 <>
                     <SuccessModal showSuccessModal={showSuccessModal} setShowSuccessModal={setShowSuccessModal} />
                     <FieldRequirement showFieldReqModal={showFieldReqModal} setShowFieldReqModal={setShowFieldReqModal} />
-                    <DeleteAbsensiModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={selectedId} setUserData={setUserData} userData={userData}/>
+                    {/* <DeleteAbsensiModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} id={selectedId} setUserData={setUserData} userData={userData}/> */}
                     <TokenExpired showTokenModal={showTokenModal} setShowTokenModal={setShowTokenModal} />
                 </>
         </div>

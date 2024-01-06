@@ -2,60 +2,62 @@ import React, { useState, useEffect } from 'react';
 import ConfirmButton from '../components/ConfirmButton';
 import CustomWebcam from '../components/CustomWebCam';
 import NpmCard from '../components/NpmCard';
+import SelectRuanganModal from '../components/SelectRuanganModal';
 
 const Camera = () => {
     const [showCapture, setShowCapture] = useState(true);
+    const [showModal, setShowModal] = useState(true)
     const [showConfirm, setShowConfirm] = useState(false);
     const [receivedNPMs, setReceivedNPMs] = useState([]);
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/absensi/jadwal`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data);
+                    const transformedData = data.data.map(item => ({
+                      npm: item.npm,
+                      border: item.kehadiran ? 'green' : 'red'
+                    }));
+                  
+                    setReceivedNPMs(transformedData);
+                  } else {
+                    throw new Error('Failed to fetch data');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
         fetchData();
     }, []);
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/absensi/`);
-            const data = await response.json();
 
-            if (data && data.kehadiran === false) {
-                // Data received with kehadiran: false, populate with red border cards
-                setReceivedNPMs(data.npmData.map((npm) => ({ npm, border: 'red' })));
-            } else if (data && data.kehadiran === true) {
-                // Data received with kehadiran: true, populate with green border cards
-                setReceivedNPMs(data.npmData.map((npm) => ({ npm, border: 'green' })));
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            // Handle errors, set default state or show error message if needed
-        }
-    };
 
     const handleCapture = async (npm) => {
         setShowCapture(false);
         setShowConfirm(true);
         if (!receivedNPMs.find((item) => item.npm === npm)) {
-            // Make an API call to update the backend with the predictedNpm and datetime now
             try {
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/absensi/update`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/absensi/set`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Accept": "application/json"
                     },
-                    body: JSON.stringify({ npm, datetime: new Date().toISOString() }),
+                    body: JSON.stringify(npm),
                 });
-
-                const updatedData = await response.json();
-                // Update state if the backend update was successful
-                if (updatedData.success) {
-                    setReceivedNPMs((prevNPMs) =>
-                        prevNPMs.map((item) =>
-                            item.npm === npm ? { ...item, border: 'green' } : item
-                        )
-                    );
-                }
             } catch (error) {
                 console.error('Error updating data:', error);
-                // Handle errors, show error message if needed
             }
         }
     };
@@ -71,7 +73,7 @@ const Camera = () => {
     };
 
     return (
-        <div className="overflow-hidden">
+        <div className="overflow-hidden h-screen bg-white dark:bg-gray-700">
             <div className='grid grid-cols-2 gap-4'>
                 <div>
                     <br />
@@ -79,13 +81,19 @@ const Camera = () => {
                     {showConfirm ? <ConfirmButton onRetake={handleRetake} /> : null}
                 </div>
                 <div className='grid grid-cols-1 gap-4'>
-                    <h1 className='text-white mt-2'>Daftar Hadir</h1>
-                    {receivedNPMs.map((npmData, index) => (
-                        <NpmCard key={index} npm={npmData.npm} border={npmData.border} />
-                    ))}
+                    <h1 className='text-black text-xl mx-auto mt-5 dark:text-white mt-2'>Daftar Hadir</h1>
+                    <div className="card mx-auto">
+                        {receivedNPMs.map((npmData, index) => (
+                            <NpmCard key={index} npm={npmData.npm} border={npmData.border} />
+                        ))}
+                    </div>
                 </div>
             </div>
+
+            <SelectRuanganModal showModal={showModal} setShowModal={setShowModal} />
         </div>
+
+        
     );
 };
 
