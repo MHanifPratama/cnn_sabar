@@ -1,15 +1,9 @@
-const ConfirmButton = ({ onClick, predictedNpm, classProbabilities, onConfirm }) => {
+const ConfirmButton = ({ onClick, predictedNpm, onConfirm }) => {
   return (
     <div className="grid grid-cols-1 gap-4">
       <div>
-        <button className="bg-gray-700 w-full border-0 mt-4 text-lg rounded-md py-2 px-4 font-medium text-white">
+        <button className="bg-cyan-600 w-full border-0 mt-4 text-lg rounded-md py-2 px-4 font-medium text-white">
           {predictedNpm}
-        </button>
-      </div>
-
-      <div>
-        <button className="bg-gray-700 w-full border-0 mt-4 text-lg rounded-md py-2 px-4 font-medium text-white">
-          {classProbabilities}
         </button>
       </div>
 
