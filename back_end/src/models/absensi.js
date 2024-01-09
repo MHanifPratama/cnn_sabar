@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
          Absensi.belongsTo(models.Pengampu, { foreignKey: "id_pengampu" });
          Absensi.belongsTo(models.MataKuliah, { foreignKey: "id_mk" });
       }
-      static async getJadwalAbsen(jadwal,id_ruangan=1){
+      static async getJadwalAbsen(jadwal,id_ruangan=3){
          const query = `
                         SELECT
                            mhs.npm,

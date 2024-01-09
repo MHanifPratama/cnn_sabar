@@ -1,10 +1,21 @@
 const { Peminat } = require("../models");
 const { Absensi } = require("../models");
 const { Pengampu } = require("../models");
+const { Mahasiswa } = require("../models");
 
 const getAllPeminat = async (req, res) => {
    try {
-      const data = await Peminat.findAll();
+      const data = await Peminat.findAll(
+         {
+            include: [
+              {
+                model: Mahasiswa,
+                attributes: ["npm", "nama_mahasiswa"],
+              },
+            ],
+          }
+      );
+
       return res.json({
          message: "Success",
          data: data,
@@ -140,6 +151,12 @@ const detailPeminat = async (req, res) => {
    try {
       const { id } = req.params;
       const data = await Peminat.findOne({
+         include: [
+            {
+              model: Mahasiswa   ,
+              attributes: ["npm", "nama_mahasiswa"],
+            },
+          ],
          where: {
             id: id,
          },
