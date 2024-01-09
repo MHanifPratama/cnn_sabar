@@ -1,8 +1,17 @@
-const {Pengampu} = require('../models');
+const {Pengampu, Dosen} = require('../models');
 
 const getAllPengampu = async (req, res) => {
     try {
-        const data = await Pengampu.findAll();
+        const data = await Pengampu.findAll(
+            {
+                include: [
+                  {
+                    model: Dosen,
+                    attributes: ["nip", "nama_dosen"],
+                  },
+                ],
+              }
+        );
         return res.json({
             message: 'Success',
             data: data
@@ -107,6 +116,12 @@ const detailPengampu = async (req, res) => {
     try{
         const {id} = req.params;
         await Pengampu.findOne({
+                include: [
+                  {
+                    model: Dosen,
+                    attributes: ["nip", "nama_dosen"],
+                  },
+                ],
             where: {
                 id: id
             }

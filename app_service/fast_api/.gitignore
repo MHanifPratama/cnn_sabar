@@ -8,6 +8,7 @@
 # testing
 /coverage
 /h5_files
+/__pycache__
 # production
 /build
 

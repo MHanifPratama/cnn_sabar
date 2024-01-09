@@ -1,8 +1,26 @@
-const { MataKuliah } = require("../models");
+const { MataKuliah, Kelas, Periode, Ruangan } = require("../models");
 
 const getAllMataKuliah = async (req, res) => {
    try {
-      const data = await MataKuliah.findAll();
+      const data = await MataKuliah.findAll({
+         include: [
+            {
+               model: Kelas,
+               as : "kelas",
+               attributes: ["nama_kelas"],
+            },
+            {
+               model: Periode,
+               as : "periode",
+               attributes: ["nama_periode"],
+            },
+            {
+               model: Ruangan,
+               as : "ruangan",
+               attributes: ["nama_ruangan"],
+            },
+         ],
+      });
       return res.json({
          message: "Success",
          data: data,
@@ -117,6 +135,23 @@ const deleteMataKuliah = async (req, res) => {
 const detailMataKuliah = async (req, res) => {
    try {
       await MataKuliah.findOne({
+         include: [
+            {
+               model: Kelas,
+               as : "kelas",
+               attributes: ["nama_kelas"],
+            },
+            {
+               model: Periode,
+               as : "periode",
+               attributes: ["nama_periode"],
+            },
+            {
+               model: Ruangan,
+               as : "ruangan",
+               attributes: ["nama_ruangan"],
+            },
+         ],
          where: {
             id: req.params.id,
          },

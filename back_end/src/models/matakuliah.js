@@ -4,9 +4,9 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
    class MataKuliah extends Model {
       static associate(models) {
-         MataKuliah.belongsTo(models.Kelas, { foreignKey: "id_kelas" });
-         MataKuliah.belongsTo(models.Periode, { foreignKey: "id_periode" });
-         MataKuliah.belongsTo(models.Ruangan, { foreignKey: "id_ruangan" });
+         MataKuliah.belongsTo(models.Kelas, { foreignKey: "id_kelas" , as: 'kelas'});
+         MataKuliah.belongsTo(models.Periode, { foreignKey: "id_periode", as: 'periode'});
+         MataKuliah.belongsTo(models.Ruangan, { foreignKey: "id_ruangan", as: 'ruangan'});
 
          MataKuliah.hasMany(models.Peminat, {
             foreignKey: "id_mk",
