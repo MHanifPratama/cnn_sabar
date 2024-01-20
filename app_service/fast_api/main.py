@@ -8,8 +8,6 @@ from model_configuration import *
 class ImageData(BaseModel):
     image:str
 
-hadir = False
-
 app = FastAPI()
 
 app.add_middleware(

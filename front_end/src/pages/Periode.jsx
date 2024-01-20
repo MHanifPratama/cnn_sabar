@@ -209,7 +209,7 @@ const Periode = () => {
                         </Table.Head>
                         <Table.Body className="divide-y">
                         {userData && userData.filter((data) => {
-                            return search.toLowerCase() === '' ? data : data.nama_periode.toLowerCase().includes(search);
+                            return search === '' ? data : data.nama_periode.includes(search);
                         }).map((data) => (
                                 <Table.Row key={data.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '90%' }}>

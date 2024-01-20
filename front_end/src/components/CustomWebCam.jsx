@@ -3,12 +3,14 @@ import Webcam from 'react-webcam';
 import TakePictureButton from './TakePictureButton';
 import ConfirmButton from './ConfirmButton';
 import PostImgFile from '../utils/PostImgFile';
+import SelectRuanganModal from './SelectRuanganModal';
 
 const CustomWebcam = ({ onConfirm, onRetake }) => {
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
   const [predictedNpm, setPredictedNpm] = useState(null);
   const [classProbabilities, setClassProbabilities] = useState(null);
+  const [showModal, setShowModal] = useState(true)
 
   const capture = async () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -35,11 +37,11 @@ const CustomWebcam = ({ onConfirm, onRetake }) => {
   return (
     <div className="container mx-auto">
       {imgSrc ? (
-        <img src={imgSrc} alt="webcam" className="w-full" />
+        <img src={imgSrc} alt="webcam" className="w-100 mx-auto justify-center" />
       ) : (
         <Webcam
           ref={webcamRef}
-          className="w-full"
+          className="w-100 mx-auto flex justify-center"
         />
       )}
       <div className="flex justify-center mt-4">
@@ -48,12 +50,13 @@ const CustomWebcam = ({ onConfirm, onRetake }) => {
             onClick={retake}
             onConfirm={() => addNpm(predictedNpm)}
             predictedNpm={predictedNpm}
-            classProbabilities={classProbabilities}
           />
         ) : (
           <TakePictureButton onClick={capture} />
         )}
       </div>
+
+      <SelectRuanganModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 };

@@ -1,8 +1,72 @@
-const { Absensi } = require("../models");
+const { Absensi, Peminat, Pengampu, MataKuliah, Dosen, Mahasiswa, Ruangan, Kelas, Periode} = require("../models");
 
 const getAllAbsensi = async (req, res) => {
    try {
-      const data = await Absensi.findAll();
+      const data = await Absensi.findAll({
+         include: [
+            {
+               model: Peminat,
+               attributes: {
+                  exclude: ["createdAt", "updatedAt"],
+               },
+               include: [
+                  {
+                     model: Mahasiswa,
+                     attributes: {
+                        exclude: ["createdAt", "updatedAt"],
+                     },
+                  },
+               ],
+            },
+            {
+               model: Pengampu,
+               attributes: {
+                  exclude: ["createdAt", "updatedAt"],
+               },
+               include: [
+                  {
+                     model: Dosen,
+                     attributes: {
+                        exclude: ["createdAt", "updatedAt"],
+                     },
+                  },
+               ],
+            },
+            {
+               model: MataKuliah,
+               attributes: {
+                  exclude: ["createdAt", "updatedAt"],
+               },
+               include: [
+                  {
+                     model: Kelas,
+                     as:'kelas',
+                     attributes: {
+                        exclude: ["createdAt", "updatedAt"],
+                     },
+                  },
+                  {
+                     model: Ruangan,
+                     as:'ruangan',
+                     attributes: {
+                        exclude: ["createdAt", "updatedAt"],
+                     },
+                  },
+                  {
+                     model: Periode,
+                     as:'periode',
+                     attributes: {
+                        exclude: ["createdAt", "updatedAt"],
+                     },
+                  }
+               ],
+            },
+            
+         ],
+         attributes: {
+            exclude: ["createdAt", "updatedAt"],
+         },
+      });
       return res.json({
          message: "Success",
          data: data,
