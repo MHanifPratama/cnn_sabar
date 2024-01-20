@@ -5,7 +5,7 @@ const DeletePeriodeModal = ({ showDeleteModal, setShowDeleteModal, id, setUserDa
     const deleteDataEntry = async () => {
         try {
           const token = sessionStorage.getItem('token');
-          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/${id}`, {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/periode/${id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',

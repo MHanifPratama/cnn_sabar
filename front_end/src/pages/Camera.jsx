@@ -17,13 +17,14 @@ const Camera = () => {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    }
+                        "Accept": "application/json",
+                        'Access-Control-Allow-Origin' : '*',
+                    },
+                    body: JSON.stringify({ id_ruangan: 1 })
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                     const transformedData = data.data.map(item => ({
                       npm: item.npm,
                       border: item.kehadiran ? 'green' : 'red'
@@ -52,15 +53,17 @@ const Camera = () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        "Accept": "application/json"
+                        'Accept': 'application/json',
+                        'Access-Control-Allow-Origin' : '*',
                     },
-                    body: JSON.stringify(npm),
+                    body: JSON.stringify({ "npm": "2017051001" }),
                 });
+                console.log(response.data)
             } catch (error) {
                 console.error('Error updating data:', error);
             }
         }
-    };
+    };    
 
     const handleRetake = () => {
         setShowCapture(true);

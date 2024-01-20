@@ -303,10 +303,10 @@ const Pengampu = () => {
                         }).map((data) => (
                                 <Table.Row key={data.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '45%' }}>
-                                        {data.id_dosen}
+                                        {data.Dosen.nama_dosen}
                                     </Table.Cell>
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '45%' }}>
-                                        {data.id_mk}
+                                        {data.nama_mk}
                                     </Table.Cell>
                                     <Table.Cell style={{ width: '10%' }}> 
                                         <a onClick={() => {
