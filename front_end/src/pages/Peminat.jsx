@@ -240,7 +240,7 @@ const Peminat = () => {
                             <Button disabled={!selectedMataKuliah || !selectedMahasiswa} onClick={() => {
                                 setShowAddModal(false);
                                 peminatAddHandler();
-                            }}>Add Pengampu</Button>
+                            }}>Add Peminat</Button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -275,7 +275,7 @@ const Peminat = () => {
                             <Button disabled={ !selectedMataKuliah || !selectedMahasiswa } onClick={() => {
                                 setShowEditModal(false);
                                 peminatEditHandler();
-                            }}>Edit Pengampu</Button>
+                            }}>Edit Peminat</Button>
                         </div>
                     </div>
                 </Modal.Body>
@@ -306,7 +306,7 @@ const Peminat = () => {
                         }).map((data) => (
                                 <Table.Row key={data.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '45%' }}>
-                                        {data.id_mahasiswa}
+                                        {data.Mahasiswa.nama_mahasiswa}
                                     </Table.Cell>
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '45%' }}>
                                         {data.id_mk}

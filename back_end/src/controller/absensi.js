@@ -243,6 +243,7 @@ const setAbsen = async (req, res) => {
    try {
       console.log(body.npm)
       const data = await Absensi.setAbsensiTrue(body.npm);
+      console.log('data')
       if (data[1] == 0){
          return res.status(404).json({
             message: "Data not found or could not be updated"
