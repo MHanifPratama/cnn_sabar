@@ -2,19 +2,22 @@ const { Peminat } = require("../models");
 const { Absensi } = require("../models");
 const { Pengampu } = require("../models");
 const { Mahasiswa } = require("../models");
+const { MataKuliah } = require("../models");
 
 const getAllPeminat = async (req, res) => {
    try {
-      const data = await Peminat.findAll(
-         {
-            include: [
-              {
-                model: Mahasiswa,
-                attributes: ["npm", "nama_mahasiswa"],
-              },
-            ],
-          }
-      );
+      const data = await Peminat.findAll({
+         include: [
+            {
+               model: Mahasiswa,
+               attributes: ["npm", "nama_mahasiswa"],
+            },
+            {
+               model: MataKuliah,
+               attributes: ["title"],
+            },
+         ],
+      });
 
       return res.json({
          message: "Success",
@@ -63,11 +66,11 @@ const createNewPeminat = async (req, res) => {
          id_mk: body.id_mk,
          kehadiran: false,
       });
-      
+
       return res.status(201).json({
          message: "Success",
          data: data,
-         data_absensi: absensi
+         data_absensi: absensi,
       });
    } catch (error) {
       return res.status(500).json({
@@ -153,10 +156,17 @@ const detailPeminat = async (req, res) => {
       const data = await Peminat.findOne({
          include: [
             {
+<<<<<<< HEAD
               model: Mahasiswa   ,
               attributes: ["npm", "nama_mahasiswa"],
             },
           ],
+=======
+               model: Mahasiswa,
+               attributes: ["npm", "nama_mahasiswa"],
+            },
+         ],
+>>>>>>> baru1
          where: {
             id: id,
          },
@@ -182,19 +192,18 @@ const detailPeminat = async (req, res) => {
 
 const countPeminat = async (req, res) => {
    try {
-       const data = await Peminat.count();
-       return res.json({
-           message: "Success",
-           data: data
-       })
+      const data = await Peminat.count();
+      return res.json({
+         message: "Success",
+         data: data,
+      });
+   } catch (error) {
+      return res.json({
+         message: "Server Error",
+         error: error,
+      });
    }
-   catch (error) {
-       return res.json({
-           message: "Server Error",
-           error: error
-       })
-   }
-}
+};
 
 module.exports = {
    getAllPeminat,
@@ -202,5 +211,5 @@ module.exports = {
    updatePeminat,
    deletePeminat,
    detailPeminat,
-   countPeminat
+   countPeminat,
 };

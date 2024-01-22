@@ -6,17 +6,17 @@ const getAllMataKuliah = async (req, res) => {
          include: [
             {
                model: Kelas,
-               as : "kelas",
+               as: "kelas",
                attributes: ["nama_kelas"],
             },
             {
                model: Periode,
-               as : "periode",
+               as: "periode",
                attributes: ["nama_periode"],
             },
             {
                model: Ruangan,
-               as : "ruangan",
+               as: "ruangan",
                attributes: ["nama_ruangan"],
             },
          ],
@@ -25,6 +25,7 @@ const getAllMataKuliah = async (req, res) => {
          message: "Success",
          data: data,
       });
+      console.log(data);
    } catch (error) {
       console.log(error);
       return res.json({
@@ -138,17 +139,17 @@ const detailMataKuliah = async (req, res) => {
          include: [
             {
                model: Kelas,
-               as : "kelas",
+               as: "kelas",
                attributes: ["nama_kelas"],
             },
             {
                model: Periode,
-               as : "periode",
+               as: "periode",
                attributes: ["nama_periode"],
             },
             {
                model: Ruangan,
-               as : "ruangan",
+               as: "ruangan",
                attributes: ["nama_ruangan"],
             },
          ],
@@ -184,19 +185,18 @@ const detailMataKuliah = async (req, res) => {
 
 const countMataKuliah = async (req, res) => {
    try {
-       const data = await MataKuliah.count();
-       return res.status(200).json({
-           message: "Success",
-           data: data
-       })
+      const data = await MataKuliah.count();
+      return res.status(200).json({
+         message: "Success",
+         data: data,
+      });
+   } catch (error) {
+      return res.json({
+         message: "Server Error",
+         error: error,
+      });
    }
-   catch (error) {
-       return res.json({
-           message: "Server Error",
-           error: error
-       })
-   }
-}
+};
 
 module.exports = {
    getAllMataKuliah,
@@ -204,5 +204,5 @@ module.exports = {
    updateMataKuliah,
    deleteMataKuliah,
    detailMataKuliah,
-   countMataKuliah
+   countMataKuliah,
 };
