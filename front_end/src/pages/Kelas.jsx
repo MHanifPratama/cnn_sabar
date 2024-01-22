@@ -66,7 +66,7 @@ const Kelas = () => {
       } else {
          try {
             const token = sessionStorage.getItem("token");
-            const response = await fetch("http://127.0.0.1:3001/api/v1/kelas/", {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/kelas/`, {
                method: "POST",
                headers: {
                   "Content-Type": "application/json",
