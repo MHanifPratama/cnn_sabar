@@ -116,41 +116,6 @@ const deletePengampu = async (req, res) => {
 };
 
 const detailPengampu = async (req, res) => {
-<<<<<<< HEAD
-    try{
-        const {id} = req.params;
-        await Pengampu.findOne({
-                include: [
-                  {
-                    model: Dosen,
-                    attributes: ["nip", "nama_dosen"],
-                  },
-                ],
-            where: {
-                id: id
-            }
-        }).then(function (result) {
-            if (result == 0) {
-                return res.json({
-                    message: 'Data Not Found',
-                    data: []
-                });
-            }
-            else {
-                return res.json({
-                    message: 'Success',
-                    data: result
-                });
-            }
-        });
-    }
-    catch(error){
-        return res.json({
-            message: 'Server Error',
-            error: error
-        });
-    }
-=======
    try {
       const { id } = req.params;
       await Pengampu.findOne({
@@ -182,7 +147,6 @@ const detailPengampu = async (req, res) => {
          error: error,
       });
    }
->>>>>>> baru1
 };
 
 const countPengampu = async (req, res) => {

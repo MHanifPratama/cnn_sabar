@@ -156,17 +156,10 @@ const detailPeminat = async (req, res) => {
       const data = await Peminat.findOne({
          include: [
             {
-<<<<<<< HEAD
-              model: Mahasiswa   ,
-              attributes: ["npm", "nama_mahasiswa"],
-            },
-          ],
-=======
                model: Mahasiswa,
                attributes: ["npm", "nama_mahasiswa"],
             },
          ],
->>>>>>> baru1
          where: {
             id: id,
          },
