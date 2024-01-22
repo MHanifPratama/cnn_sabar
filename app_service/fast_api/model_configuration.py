@@ -8,7 +8,7 @@ from io import BytesIO
 class ModelConfiguration:
     def __init__(self):
         self.model_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'h5_files')
-        self.model_path = os.path.join(self.model_directory, 'skenario_9_inception_ressnet_v2.h5')
+        self.model_path = os.path.join(self.model_directory, 'model_inceptionressnet_gray_epoch_npm_299x299_20epoch.h5')
         self.model = load_model(self.model_path)
         self.height = self.model.layers[0].input_shape[0][1]
         self.width = self.model.layers[0].input_shape[0][2]
@@ -26,20 +26,31 @@ class ModelConfiguration:
     
     def image_preprocess(self, img):
         img_bytesio = BytesIO(img)
-        image = Image.open(img_bytesio)
-        image = image.resize((self.height, self.width))
+        img = Image.open(img_bytesio).convert('L')
+        img = img.resize((299, 299))
+        image = np.stack((img,) * 3, axis=-1)
         image_array = np.expand_dims(np.array(image), axis=0)
         return image_array
 
+
     def get_class_name(self):
-        class_name = ['2017051001',
+        class_name = ['2007051040',
+                      '2017051001',
+                      '2017051006',
                       '2017051017',
+                      '2017051049',
+                      '2017051051',
+                      '2017051055',
+                      '2017051061',
+                      '2017051078',
                       '2117051009',
                       '2117051019',
                       '2117051027',
                       '2117051043',
                       '2117051048',
                       '2117051050',
+                      '2117051068',
+                      '2117051070',
                       '2117051095',
                       '2157051001',
                       '2157051006']
