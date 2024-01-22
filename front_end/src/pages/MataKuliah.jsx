@@ -1,6 +1,10 @@
 "use client";
 import CustomSidebar from "../components/CustomSidebar";
+<<<<<<< HEAD
 import DeleteMataKuliahModal from "../components/DeleteMataKuliahModal";
+=======
+import DeleteMataKuliahModal from "../components/DeleteMatakuliahModal";
+>>>>>>> baru1
 import { Label, TextInput, Button, Modal, Table } from "flowbite-react";
 import { useState, useEffect } from "react";
 import FieldRequirement from "../components/FieldRequirement";
@@ -25,9 +29,15 @@ const MataKuliah = () => {
    const [selectedId, setSelectedId] = useState(null);
    const [showTokenModal, setShowTokenModal] = useState(false);
    const [selectedKelas, setSelectedKelas] = useState("");
+<<<<<<< HEAD
    const [kelasData, setKelasData] = useState([]);
    const [selectedPeriode, setSelectedPeriode] = useState("");
    const [selectedRuangan, setSelectedRuangan] = useState("");
+=======
+   const [selectedPeriode, setSelectedPeriode] = useState("");
+   const [selectedRuangan, setSelectedRuangan] = useState("");
+   const [kelasData, setKelasData] = useState([]);
+>>>>>>> baru1
    const [periodeData, setPeriodeData] = useState([]);
    const [ruanganData, setRuanganData] = useState([]);
 
@@ -66,6 +76,10 @@ const MataKuliah = () => {
 
             if (response.ok) {
                const result = await response.json();
+<<<<<<< HEAD
+=======
+               console.log(result);
+>>>>>>> baru1
                setUserData(result.data);
                if (result.message === "Invalid Token") {
                   setShowTokenModal(true);
@@ -484,6 +498,7 @@ const MataKuliah = () => {
                                     {data.sks}
                                  </Table.Cell>
                                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "15%" }}>
+<<<<<<< HEAD
                                     {data.id_kelas}
                                  </Table.Cell>
                                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "15%" }}>
@@ -491,6 +506,15 @@ const MataKuliah = () => {
                                  </Table.Cell>
                                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "15%" }}>
                                     {data.id_ruangan}
+=======
+                                    {data.kelas.nama_kelas}
+                                 </Table.Cell>
+                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "15%" }}>
+                                    {data.periode.nama_periode}
+                                 </Table.Cell>
+                                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: "15%" }}>
+                                    {data.ruangan.nama_ruangan}
+>>>>>>> baru1
                                  </Table.Cell>
                                  <Table.Cell style={{ width: "15%" }}>{data.jadwal_mulai}</Table.Cell>
                                  <Table.Cell style={{ width: "10%" }}>
