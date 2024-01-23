@@ -49,5 +49,4 @@ const DeleteMahasiswaModal = ({ showDeleteModal, setShowDeleteModal, id, setUser
       );
 }
 
-
 export default DeleteMahasiswaModal

@@ -17,8 +17,6 @@ const Absensi = () => {
     const [search, setSearch] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false)
     const [showFieldReqModal, setShowFieldReqModal] = useState(false)
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedId, setSelectedId] = useState(null);
     const [showTokenModal, setShowTokenModal] = useState(false)
     const [selectedPeminat, setSelectedPeminat] = useState('');
     const [selectedPengampu, setSelectedPengampu] = useState('');
@@ -26,6 +24,15 @@ const Absensi = () => {
     const [peminatData, setPeminatData] = useState([]);
     const [pengampuData, setPengampuData] = useState([]);
     const [mataKuliahData, setMataKuliahData] = useState([]);
+    const options = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false, // Use 24-hour format
+        timeZone: 'UTC' // Assuming the input is in UTC
+      };
 
     const onCloseAddModal = () => {
         setShowAddModal(false);
@@ -347,26 +354,35 @@ const Absensi = () => {
                 <div className="m-auto ml-7 overflow-x-auto overflow-y-auto" style={{ height: "78%", width: "95%"}}>
                     <Table hoverable style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <Table.Head className="sticky top-0 z-10 bg-cyan-600">
-                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>Peminat</Table.HeadCell>
-                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>Pengampu</Table.HeadCell>
-                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '30%' }}>Mata Kuliah</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '20%' }}>Mata Kuliah</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '20%' }}>Waktu</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '20%' }}>Ruangan</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '20%' }}>Nama Mahasiswa</Table.HeadCell>
+                            <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white" style={{ width: '20%' }}>Kehadiran</Table.HeadCell>
                             {/* <Table.HeadCell className="dark:bg-cyan-600 bg-cyan-600 text-white flex item-center" style={{ width: '10%' }}>
                                 Action
                             </Table.HeadCell> */}
                         </Table.Head>
                         <Table.Body className="divide-y">
                         {userData && userData.filter((data) => {
-                            return search.toLowerCase() === '' ? data : data.title.toLowerCase().includes(search);
+                            console.log(data)
+                            return search.toLowerCase() === '' ? data : data.MataKuliah.title.toLowerCase().includes(search);
                         }).map((data) => (
                                 <Table.Row key={data.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '45%' }}>
-                                        {data.id_peminat}
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '20%' }}>
+                                        {data.MataKuliah.title}
                                     </Table.Cell>
-                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '45%' }}>
-                                        {data.id_pengampu}
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '20' }}>
+                                        {new Date(data.MataKuliah.jadwal_mulai).toLocaleString('ID', options)}
                                     </Table.Cell>
-                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '45%' }}>
-                                        {data.id_mk}
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '20' }}>
+                                        {data.MataKuliah.ruangan.nama_ruangan}
+                                    </Table.Cell>
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '20' }}>
+                                        {data.Peminat.Mahasiswa.nama_mahasiswa}
+                                    </Table.Cell>
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" style={{ width: '20' }}>
+                                        {data.kehadiran ? "Hadir" : "Tidak Hadir"}
                                     </Table.Cell>
                                     {/* <Table.Cell style={{ width: '10%' }}> 
                                         <a onClick={() => {

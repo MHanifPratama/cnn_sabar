@@ -19,7 +19,9 @@ const CustomWebcam = ({ onConfirm, onRetake }) => {
     if (data && data.predicted_npm) {
       setPredictedNpm(data.predicted_npm);
       setClassProbabilities(data.class_probabilities);
+      sessionStorage.setItem('predictedNpm', data.predicted_npm)
     }
+    
   };
 
   const retake = () => {
@@ -35,7 +37,7 @@ const CustomWebcam = ({ onConfirm, onRetake }) => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto min-h-screen">
       {imgSrc ? (
         <img src={imgSrc} alt="webcam" className="w-100 mx-auto justify-center" />
       ) : (
